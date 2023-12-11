@@ -44,4 +44,9 @@ void GameController::Init()
 void GameController::SubInit() 
 {
 	Timer->SetFreq();
+	Timer->Reset();
+}
+void GameController::TimerRefresh()
+{
+	Timer->Reset();
 }

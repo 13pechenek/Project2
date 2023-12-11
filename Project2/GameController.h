@@ -17,4 +17,5 @@ public:
 	static void Update();
 	static void Render();
 	static void SubInit();
+	static void TimerRefresh();
 };

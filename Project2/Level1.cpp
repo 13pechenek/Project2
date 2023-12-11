@@ -25,9 +25,9 @@ void Level1::Render()
 }
 void Level1::Update(double timeTotal, double timeDelta)
 {
-	v_y += a_y * timeDelta*10;
+	v_y += a_y * timeDelta*5;
 	y += v_y;
-	x += v_x * timeDelta*10;
+	x += v_x * timeDelta*5;
 	if (y > 500)
 	{
 		y = 500;
@@ -49,3 +49,4 @@ void Level1::Update(double timeTotal, double timeDelta)
 		v_x = -v_x;
 	}
 }
+
