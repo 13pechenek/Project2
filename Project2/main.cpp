@@ -63,6 +63,8 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE prevInstance, LPWSTR cmd, int
 		return -1;
 	}
 
+	GameLevel::Init(graphics);
+
 	ShowWindow(windowhandle, nCmdShow);
 
 	GameController::LoadInitialLevel(new Level1());
@@ -83,7 +85,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE prevInstance, LPWSTR cmd, int
 		{
 			GameController::Update();
 			graphics->BeginDraw();
-			GameController::Render(graphics);
+			GameController::Render();
 			graphics->EndDraw();
 		}
 	}

@@ -2,22 +2,26 @@
 #include "GameController.h"
 
 
+
 void Level1::Load()
 {
 	y = 0;
 	x = 0;
 	v_x = 1;
 	v_y = 0;
+	sprites = new Sprites(L"test.png", gfx);
 }
 
 void Level1::Unload()
 {
-
+	delete sprites;
 }
-void Level1::Render(Graphics* gfx) 
+void Level1::Render() 
 {
 	gfx->ClearScreen(0.7f, 0.7f, 0.2f);
-	gfx->DrawCircle(x, y, 50.0, 0, 0, 1, 1);
+	gfx->DrawRect(x, y, 100, 100, 0, 0, 1);
+
+	sprites->DrawAtPlace(x,y);
 }
 void Level1::Update() 
 {

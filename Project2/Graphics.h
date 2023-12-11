@@ -11,6 +11,10 @@ public:
 	Graphics();
 	~Graphics();
 	bool Init(HWND windowHandle);
+	ID2D1RenderTarget* GetRenderTarget()
+	{
+		return rendertarget;
+	}
 	void BeginDraw() 
 	{ 
 		rendertarget->BeginDraw();
@@ -21,4 +25,5 @@ public:
 	}
 	void ClearScreen(float r, float g, float b);
 	void DrawCircle(float x, float y, float radius, float r, float g, float b, float a);
+	void DrawRect(float x, float y, float a, float b, float red, float green, float blue);
 };

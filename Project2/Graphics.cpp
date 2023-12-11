@@ -43,7 +43,20 @@ void Graphics::DrawCircle(float x, float y, float radius, float r, float g, floa
 {
 	
 	brush->SetColor(D2D1::ColorF(r, g, b, a));
-
-	rendertarget->FillEllipse(D2D1::Ellipse(D2D1::Point2F(x, y), radius, radius), brush);
+	ID2D1EllipseGeometry* ellipseGeom;
+	HRESULT hr = factory->CreateEllipseGeometry(D2D1::Ellipse(D2D1::Point2F(x, y), radius, radius), &ellipseGeom);
+	rendertarget->FillGeometry(ellipseGeom, brush);
+	//rendertarget->FillEllipse(D2D1::Ellipse(D2D1::Point2F(x, y), radius, radius), brush);
 	
+}
+
+void Graphics::DrawRect(float x, float y, float a, float b, float red, float green, float blue)
+{
+
+	brush->SetColor(D2D1::ColorF(red, green, blue, 1));
+	ID2D1RectangleGeometry* rectGeom;
+	HRESULT hr = factory->CreateRectangleGeometry(D2D1::Rect(x,y,x+a,y+b), &rectGeom);
+	rendertarget->FillGeometry(rectGeom, brush);
+	//rendertarget->FillEllipse(D2D1::Ellipse(D2D1::Point2F(x, y), radius, radius), brush);
+
 }
