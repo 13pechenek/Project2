@@ -67,6 +67,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE prevInstance, LPWSTR cmd, int
 
 	ShowWindow(windowhandle, nCmdShow);
 
+	GameController::Init();
 	GameController::LoadInitialLevel(new Level1());
 	// выделяем память для ловли сообщений, затем, чтобы избежать ошибок, вручную вбиваем пустое сообщение
 
@@ -74,6 +75,8 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE prevInstance, LPWSTR cmd, int
 	message.message = WM_NULL;
 
 	//создаем цикл с выходом через крестик
+	bool flag = true;
+	int cntr = 0;
 
 	while(message.message != WM_QUIT)
 	{
@@ -88,13 +91,12 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE prevInstance, LPWSTR cmd, int
 			GameController::Render();
 			graphics->EndDraw();
 		}
-	}
-	/*
-	while (GetMessage(&message, NULL, 0, 0))
-	{
-		DispatchMessage(&message);
-	}*/
+		/*if (flag && cntr < 10) {
+			GameController::SubInit();
+			cntr++;
+		}*/
 
+	}
 	delete graphics;
 	return 0;
 }

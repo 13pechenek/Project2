@@ -9,11 +9,11 @@ class Level1 : public GameLevel
 	float x;
 	float v_x;
 	float v_y;
-	const float a_y = 1;
+	const float a_y = 10;
 	Sprites* sprites;
 public:
 	void Load() override;
 	void Unload() override;
 	void Render() override;
-	void Update() override;
+	void Update(double timeTotal, double timeDelta) override;
 };

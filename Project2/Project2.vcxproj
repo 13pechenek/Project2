@@ -136,6 +136,7 @@
     <ClCompile Include="Sprites.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="FPSControl.h" />
     <ClInclude Include="Graphics.h" />
     <ClInclude Include="GameLevel.h" />
     <ClInclude Include="GameController.h" />

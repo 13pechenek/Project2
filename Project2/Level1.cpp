@@ -7,7 +7,7 @@ void Level1::Load()
 {
 	y = 0;
 	x = 0;
-	v_x = 1;
+	v_x = 10;
 	v_y = 0;
 	sprites = new Sprites(L"test.png", gfx);
 }
@@ -23,14 +23,14 @@ void Level1::Render()
 
 	sprites->DrawAtPlace(x,y);
 }
-void Level1::Update() 
+void Level1::Update(double timeTotal, double timeDelta)
 {
-	v_y += a_y;
+	v_y += a_y * timeDelta*10;
 	y += v_y;
-	x += v_x;
-	if (y > 600)
+	x += v_x * timeDelta*10;
+	if (y > 500)
 	{
-		y = 600;
+		y = 500;
 		v_y = -v_y;
 	}
 	else if (y < 0)
@@ -38,9 +38,9 @@ void Level1::Update()
 		y = 0;
 		v_y = -v_y;
 	}
-	if (x > 800)
+	if (x > 700)
 	{
-		x = 800;
+		x = 700;
 		v_x = -v_x;
 	}
 	else if (x < 0)

@@ -1,12 +1,13 @@
 #pragma once
 
 #include "GameLevel.h"
+#include "FPSControl.h"
 
 class GameController
 {
 	GameController();
-
 	static GameLevel* currentLevel;
+	static FPSControl* Timer;
 public:
 	static bool Loading;
 
@@ -15,4 +16,5 @@ public:
 	static void SwitchLevel(GameLevel* level);
 	static void Update();
 	static void Render();
+	static void SubInit();
 };

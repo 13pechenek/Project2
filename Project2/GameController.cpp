@@ -2,6 +2,7 @@
 
 GameLevel* GameController::currentLevel;
 bool GameController::Loading;
+FPSControl* GameController::Timer;
 
 void GameController::LoadInitialLevel(GameLevel* level) 
 {
@@ -25,15 +26,22 @@ void GameController::Render()
 {
 	if (Loading) return;
 	currentLevel->Render();
+
 }
 
 void GameController::Update()
 {
 	if (Loading) return;
-	currentLevel->Update();
+	Timer->Update();
+	currentLevel->Update(Timer->GetTimeTotal(), Timer->GetTimeDelta());
 }
 void GameController::Init()
 {
 	Loading = true;
 	currentLevel = 0;
+	Timer = new FPSControl();
+}
+void GameController::SubInit() 
+{
+	Timer->SetFreq();
 }
