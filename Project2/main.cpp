@@ -6,29 +6,19 @@
 #include <chrono>
 
 
-Graphics* graphics; //глобальное объявление указателя на графический "движок"
+Graphics* graphics; // Глобальное объявление указателя на графический "движок"
 
-LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam) //обра,отка сообщений
+LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam) // Интерфес обработки сообщений для окна
 {
-	if (uMsg == WM_DESTROY) { PostQuitMessage(0);  return 0; } //выход на крестик
-	if (uMsg == WM_PAINT)
-	{
-		graphics->BeginDraw();
-
-		graphics->ClearScreen((rand() % 100) / 100.0f, (rand() % 100) / 100.0f, (rand() % 100) / 100.0f);
-		for (int i = 0; i < 100; i++) graphics->DrawCircle(rand() % 800, rand() % 600, rand() % 100, (rand() % 100) / 100.0f, (rand() % 100) / 100.0f, (rand() % 100) / 100.0f, (rand() % 100) / 100.0f);
-
-		graphics->EndDraw();
-	}
-
+	if (uMsg == WM_DESTROY) { PostQuitMessage(0);  return 0; } // Выход на крестик
 	return DefWindowProc(hwnd, uMsg, wParam, lParam);
 }
 
 
 
-int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE prevInstance, LPWSTR cmd, int nCmdShow) // основной скрипт
+int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE prevInstance, LPWSTR cmd, int nCmdShow) // Основной скрипт
 {
-	// объявление объекта окно, его параметры
+	// Объявление объекта окно, его параметры
 
 	WNDCLASSEX windowclass;
 	ZeroMemory(&windowclass, sizeof(WNDCLASSEX));
@@ -40,12 +30,12 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE prevInstance, LPWSTR cmd, int
 	windowclass.lpszClassName = L"MainWindow";
 	RegisterClassEx(&windowclass);
 
-	// строим прямоугольник, от которого строится окно
+	// Строим прямоугольник, от которого строится окно
 
 	RECT rect = {0, 0, 800, 600};
 	AdjustWindowRectEx(&rect, WS_OVERLAPPEDWINDOW, false, WS_EX_OVERLAPPEDWINDOW);
 
-	// создаём с нашими параметрами
+	// Создаём окно с нашими параметрами
 
 	HWND windowhandle = CreateWindowEx( WS_EX_OVERLAPPEDWINDOW,
 		L"MainWindow",
@@ -55,44 +45,54 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE prevInstance, LPWSTR cmd, int
 		rect.right - rect.left, rect.bottom - rect.top,
 		NULL, NULL,
 		hInstance, 0);
-	if (!windowhandle) return -1; // проверка на успешное создание
+	if (!windowhandle) return -1; // Проверка на успешное создание
 
 
-	// теперь создаём наш "движок" в куче
+	// Создаём наш "движок" в куче
 
 	graphics = new Graphics();
-	if (!graphics->Init(windowhandle))// пробуем провести инициаллизацию нашего "движка". Если не получилось, его убиваем, затем выходим
+	if (!graphics->Init(windowhandle)) // Пробуем провести инициаллизацию нашего "движка". Если не получилось, его убиваем, затем выходим
 	{
 		delete graphics;
 		return -1;
 	}
 
-	GameLevel::Init(graphics);
+	/*  Подгружаем наш "движок" в универсальную систему игровых уровней.
+	Таким образом можно запускать любой из уровней на одном и том же движке без мусорного кода  */
 
-	ShowWindow(windowhandle, nCmdShow);
+	GameLevel::Init(graphics); 
+	
+	// Открываем наше окно
+
+	ShowWindow(windowhandle, nCmdShow); 
+
+	// Подготовка класса контроля хода игры
 
 	GameController::Init();
 	GameController::LoadInitialLevel(new Level1());
-	// выделяем память для ловли сообщений, затем, чтобы избежать ошибок, вручную вбиваем пустое сообщение
+
+	// Выделяем память для ловли сообщений, затем, чтобы избежать ошибок, вручную вбиваем пустое сообщение
 
 	MSG message;
 	message.message = WM_NULL;
 
-	//создаем цикл с выходом через крестик
-	bool paused = false;
+	// Создаем цикл с выходом через крестик
 
 	while(message.message != WM_QUIT)
 	{
 		if (PeekMessage(&message, NULL, 0, 0, PM_REMOVE)) {
 			TranslateMessage(&message);
-			DispatchMessage(&message); // отправляем сообщение в винпрок
+			DispatchMessage(&message); // Отправляем сообщение в винпрок
 		}
-		if (!GetKeyState(VK_TAB)) GameController::Update();
-		else GameController::TimerRefresh();
+		if (!GetKeyState(VK_TAB)) GameController::Update(); // Реализация паузы через tab, после нажатия не обновляем состояние игры
+		else GameController::TimerRefresh(); // Форсируем обновление значения времени, чтобы игра не посчитала необходимым пропустить большое кол-во кадров
+		
+		// Отрисовка текущего состояния игры
+		
 		graphics->BeginDraw();
 		GameController::Render();
 		graphics->EndDraw();
 	}
-	delete graphics;
+	delete graphics; // Освобождаем память
 	return 0;
 }

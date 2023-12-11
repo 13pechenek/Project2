@@ -2,28 +2,31 @@
 #include <Windows.h>
 #include <d2d1.h>
 
+/*  Файл заголовка, содержащий объявление класса игровой гафики и его методов.  */
+
+
 class Graphics
 {
-	ID2D1Factory* factory;
-	ID2D1HwndRenderTarget* rendertarget;
-	ID2D1SolidColorBrush* brush;
+	ID2D1Factory* factory; // Указатель на будущий конвеер игровой графики
+	ID2D1HwndRenderTarget* rendertarget; // Указатель на будущую цель рендера конвеером
+	ID2D1SolidColorBrush* brush; // Указатель на кисть отрисовки
 public:
-	Graphics();
-	~Graphics();
-	bool Init(HWND windowHandle);
-	ID2D1RenderTarget* GetRenderTarget()
+	Graphics(); // Конструктор класса
+	~Graphics(); // Деструктор класса
+	bool Init(HWND windowHandle); // Настройка параметров класса
+	ID2D1RenderTarget* GetRenderTarget() // Метод позволяющий взаимодействовать с целью рендера
 	{
 		return rendertarget;
 	}
-	void BeginDraw() 
+	void BeginDraw() // Объявление начала отрисовки
 	{ 
 		rendertarget->BeginDraw();
 	}
-	void EndDraw()
+	void EndDraw() // Объявление конца отрисовки
 	{
 		rendertarget->EndDraw();
 	}
-	void ClearScreen(float r, float g, float b);
-	void DrawCircle(float x, float y, float radius, float r, float g, float b, float a);
-	void DrawRect(float x, float y, float a, float b, float red, float green, float blue);
+	void ClearScreen(float r, float g, float b); // Заполнение экрана одним цветом
+	void DrawCircle(float x, float y, float radius, float r, float g, float b, float a); // Отрисовка круга
+	void DrawRect(float x, float y, float a, float b, float red, float green, float blue); // Отрисовка прямоугольника
 };
