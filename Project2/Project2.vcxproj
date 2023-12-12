@@ -140,6 +140,8 @@
     <ClInclude Include="Graphics.h" />
     <ClInclude Include="GameLevel.h" />
     <ClInclude Include="GameController.h" />
+    <ClInclude Include="CallbackF.h" />
+    <ClInclude Include="GameStructs.h" />
     <ClInclude Include="Level1.h" />
     <ClInclude Include="Sprites.h" />
   </ItemGroup>

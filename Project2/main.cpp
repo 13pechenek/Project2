@@ -4,20 +4,22 @@
 #include "Level1.h"
 #include "GameController.h"
 #include <chrono>
+#include "CallbackF.h"
+
+
+
+
 
 
 Graphics* graphics; // Глобальное объявление указателя на графический "движок"
 
-LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam) // Интерфес обработки сообщений для окна
-{
-	if (uMsg == WM_DESTROY) { PostQuitMessage(0);  return 0; } // Выход на крестик
-	return DefWindowProc(hwnd, uMsg, wParam, lParam);
-}
+
 
 
 
 int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE prevInstance, LPWSTR cmd, int nCmdShow) // Основной скрипт
 {
+	keyboardHook = SetWindowsHookEx(WH_KEYBOARD_LL, KeyboardProc, NULL, 0);
 	// Объявление объекта окно, его параметры
 
 	WNDCLASSEX windowclass;
@@ -84,15 +86,14 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE prevInstance, LPWSTR cmd, int
 			TranslateMessage(&message);
 			DispatchMessage(&message); // Отправляем сообщение в винпрок
 		}
-		if (!GetKeyState(VK_TAB)) GameController::Update(); // Реализация паузы через tab, после нажатия не обновляем состояние игры
-		else GameController::TimerRefresh(); // Форсируем обновление значения времени, чтобы игра не посчитала необходимым пропустить большое кол-во кадров
-		
-		// Отрисовка текущего состояния игры
-		
+		// Обновление состояния игры и отрисовка текущего состояния игры
+		GameController::Update(keyDirections);
+		GameController::Update();
 		graphics->BeginDraw();
 		GameController::Render();
 		graphics->EndDraw();
 	}
+	UnhookWindowsHookEx(keyboardHook);
 	delete graphics; // Освобождаем память
 	return 0;
 }

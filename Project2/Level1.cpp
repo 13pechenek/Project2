@@ -7,8 +7,7 @@ void Level1::Load()
 {
 	y = 0;
 	x = 0;
-	v_x = 10;
-	v_y = 0;
+	v = 80;
 	sprites = new Sprites(L"test.png", gfx);
 }
 
@@ -25,28 +24,74 @@ void Level1::Render()
 }
 void Level1::Update(double timeTotal, double timeDelta)
 {
-	v_y += a_y * timeDelta*5;
-	y += v_y;
-	x += v_x * timeDelta*5;
+	return;
+}
+void Level1::Update(double timeTotal, double timeDelta, KeyDirections key)
+{
+
+	vec[0] = 0;
+	vec[1] = 0;
+	if (key.up && !key.left && !key.right && !key.down) {
+		vec[1] = -1;
+		vec[0] = 0;
+	}
+	if (key.up && key.left && !key.right && !key.down) {
+		vec[1] = -0.7071;
+		vec[0] = -0.7071;
+	}
+	if (key.up && !key.left && key.right && !key.down) {
+		vec[1] = -0.7071;
+		vec[0] = 0.7071;
+	}
+	if (key.up && !key.left && !key.right && key.down) {
+		vec[1] = 0;
+		vec[0] = 0;
+	}
+	if (!key.up && !key.left && !key.right && key.down) {
+		vec[1] = 1;
+		vec[0] = 0;
+	}
+	if (!key.up && key.left && !key.right && key.down) {
+		vec[1] = 0.7071;
+		vec[0] = -0.7071;
+	}
+	if (!key.up && !key.left && key.right && key.down) {
+		vec[1] = 0.7071;
+		vec[0] = 0.7071;
+	}
+	if (!key.up && key.left && !key.right && !key.down) {
+		vec[0] = -1;
+		vec[1] = 0;
+	}
+	if (!key.up && !key.left && key.right && !key.down) {
+		vec[0] = 1;
+		vec[1] = 0;
+	}
+	if (!key.up && key.left && key.right && !key.down) {
+		vec[0] = 0;
+		vec[1] = 0;
+	}
+
+	
+
+	y += v * timeDelta * vec[1];
+	x += v * timeDelta * vec[0];
+
 	if (y > 500)
 	{
 		y = 500;
-		v_y = -v_y;
 	}
 	else if (y < 0)
 	{
 		y = 0;
-		v_y = -v_y;
 	}
 	if (x > 700)
 	{
 		x = 700;
-		v_x = -v_x;
 	}
 	else if (x < 0)
 	{
 		x = 0;
-		v_x = -v_x;
 	}
 }
 

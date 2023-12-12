@@ -4,6 +4,9 @@ GameLevel* GameController::currentLevel;
 bool GameController::Loading;
 FPSControl* GameController::Timer;
 
+
+
+
 void GameController::LoadInitialLevel(GameLevel* level) 
 {
 	Loading = true;
@@ -49,4 +52,12 @@ void GameController::SubInit()
 void GameController::TimerRefresh()
 {
 	Timer->Reset();
+}
+
+
+void GameController::Update(KeyDirections key) 
+{
+	if (Loading) return;
+	Timer->Update();
+	currentLevel->Update(Timer->GetTimeTotal(), Timer->GetTimeDelta(), key);
 }

@@ -3,21 +3,19 @@
 #include "GameLevel.h"
 
 
+
 class Level1 : public GameLevel
 {
+	double vec[2]{ 0, 0 };
 	float y;
 	float x;
-	float v_x;
-	float v_y;
-	float a_y = 10;
-	float v_x1;
-	float v_y1;
-	float a_y1;
+	float v;
 	Sprites* sprites;
 public:
 	void Load() override;
 	void Unload() override;
 	void Render() override;
 	void Update(double timeTotal, double timeDelta) override;
+	void Update(double timeTotal, double timeDelta, KeyDirections key) override;
 
 };
