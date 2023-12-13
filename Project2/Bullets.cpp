@@ -12,9 +12,13 @@ Bullets::Bullets(float x, float y, POINT aimPos)
 	sin = sqrt(pow((aimPos.y - this->y), 2)) / distanceToPoint;
 }
 
-void Bullets::Update(double timeDelta, KeyDirections key, POINT mPoint)
+void Bullets::Update(double timeDelta)
 {
 	move(timeDelta);
+}
+void Bullets::Update(double timeDelta, KeyDirections key, POINT mPosition)
+{
+	return;
 }
 
 void Bullets::move(double timeDelta)

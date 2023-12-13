@@ -17,6 +17,7 @@ private:
 	void SetInTheBorders();
 	Bullets* Shoot();
 	POINT mPoint;
+	void Update(double timeDelta);
 public:
 	POINT GetCoordinate();
 	Player(float x, float y, Graphics* gfx);

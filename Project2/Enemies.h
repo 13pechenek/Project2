@@ -66,7 +66,7 @@ public:
 
 
 
-	void Update(double timeDelta, KeyDirections key, POINT mPosition) override
+	void Update(double timeDelta) override
 	{
 		if (able_to_see())
 		{

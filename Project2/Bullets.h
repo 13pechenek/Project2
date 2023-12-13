@@ -9,9 +9,10 @@ private:
 	POINT aimPos;
 	void move(double timeDelta);
 	void ResetDistance();
+	void Update(double timeDelta, KeyDirections key, POINT mpoint) override;
 public:
 	Bullets(float x, float y, POINT aimPos);
-	void Update(double timeDelta, KeyDirections key, POINT mPoint) override;
+	void Update(double timeDelta) override;
 	void Render() override;
 };
 

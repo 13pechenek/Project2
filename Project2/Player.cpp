@@ -100,7 +100,13 @@ void Player::Update(double timeDelta, KeyDirections key, POINT mPoint)
 {
 	Move(key, timeDelta);
 	if (mPoint.x != 0 && mPoint.y != 0) bullets.push_back(Shoot());
-	for (Bullets* n : bullets) n->Update(timeDelta, key, mPoint);
+	for (Bullets* n : bullets) n->Update(timeDelta);
+	return;
+}
+
+
+void Player::Update(double timeDelta)
+{
 	return;
 }
 

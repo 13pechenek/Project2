@@ -15,5 +15,6 @@ public:
 	virtual void Render() = 0;
 	/*virtual bool Touch() = 0;
 	virtual bool Touched() = 0;*/
+	virtual void Update(double timeDelta) = 0;
 };
 
