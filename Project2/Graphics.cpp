@@ -57,6 +57,7 @@ void Graphics::DrawCircle(float x, float y, float radius, float r, float g, floa
 	ID2D1EllipseGeometry* ellipseGeom; // Создаём указатель на геометрию эллипса
 	HRESULT hr = factory->CreateEllipseGeometry(D2D1::Ellipse(D2D1::Point2F(x, y), radius, radius), &ellipseGeom); // Создаём эту геометрию
 	rendertarget->FillGeometry(ellipseGeom, brush); // Рисуем круг по заданной геометрии
+	delete ellipseGeom;
 }
 
 void Graphics::DrawRect(float x, float y, float a, float b, float red, float green, float blue)

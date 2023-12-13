@@ -1,10 +1,13 @@
 #include "Player.h"
 
+
 Player::Player(float x, float y, Graphics* gfx)
 {
 	sprite = new Sprites(L"test.png", gfx);
 	this->x = x;
 	this->y = y;
+	mPoint.x = 0;
+	mPoint.y = 0;
 }
 
 
@@ -87,9 +90,17 @@ POINT Player::GetCoordinate()
 }
 
 
-void Player::Update(double timeDelta, KeyDirections key)
+Bullets* Player::Shoot()
+{
+	return new Bullets(x, y, mPoint);
+}
+
+
+void Player::Update(double timeDelta, KeyDirections key, POINT mPoint)
 {
 	Move(key, timeDelta);
+	if (mPoint.x != 0 && mPoint.y != 0) bullets.push_back(Shoot());
+	for (Bullets* n : bullets) n->Update(timeDelta, key, mPoint);
 	return;
 }
 
@@ -97,6 +108,7 @@ void Player::Update(double timeDelta, KeyDirections key)
 void Player::Render()
 {
 	(*sprite).DrawAtPlace(x, y);
+	for (Bullets* n : bullets) n->Render();
 }
 
 
