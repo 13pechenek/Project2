@@ -4,7 +4,10 @@
 
 DWORD currentKey;
 HHOOK keyboardHook;
+HHOOK mouseHook;
 KeyDirections keyDirections;
+POINT Mposition;
+
 
 LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam) // Интерфес обработки сообщений для окна
 {
@@ -54,4 +57,22 @@ LRESULT CALLBACK KeyboardProc(int nCode, WPARAM wParam, LPARAM lParam) {
 		}
 	}
 	return CallNextHookEx(keyboardHook, nCode, wParam, lParam);
+}
+
+bool click = 0;
+LRESULT CALLBACK MouseProc(int nCode, WPARAM wParam, LPARAM lParam)
+{
+	Mposition.x = 0;
+	Mposition.y = 0;
+	MOUSEHOOKSTRUCT* mouseStruct = (MOUSEHOOKSTRUCT*) lParam;
+	if (nCode >= 0 && (wParam == WM_MBUTTONDOWN))
+	{
+		Mposition = mouseStruct->pt;
+		click = 1;
+	}
+	if (nCode >= 0 && (wParam == WM_MBUTTONUP)) 
+	{
+		click = 0;
+	}
+	return CallNextHookEx(mouseHook, nCode, wParam, lParam);
 }
