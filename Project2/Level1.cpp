@@ -24,7 +24,7 @@ void Level1::Update(double timeTotal, double timeDelta)
 {
 	return;
 }
-void Level1::Update(double timeTotal, double timeDelta, KeyDirections key)
+void Level1::Update(double timeTotal, double timeDelta, KeyDirections key, POINT Mpostion)
 {
 	player->Update(timeDelta, key);
 }

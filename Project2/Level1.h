@@ -14,5 +14,5 @@ public:
 	void Unload() override;
 	void Render() override;
 	void Update(double timeTotal, double timeDelta) override;
-	void Update(double timeTotal, double timeDelta, KeyDirections key) override;
+	void Update(double timeTotal, double timeDelta, KeyDirections key, POINT Mpostion) override;
 };

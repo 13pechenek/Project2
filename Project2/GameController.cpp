@@ -55,9 +55,9 @@ void GameController::TimerRefresh()
 }
 
 
-void GameController::Update(KeyDirections key) 
+void GameController::Update(KeyDirections key, POINT Mpostion)
 {
 	if (Loading) return;
 	Timer->Update();
-	currentLevel->Update(Timer->GetTimeTotal(), Timer->GetTimeDelta(), key);
+	currentLevel->Update(Timer->GetTimeTotal(), Timer->GetTimeDelta(), key, Mpostion);
 }
