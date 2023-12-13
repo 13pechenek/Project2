@@ -3,13 +3,14 @@
 #include "Objects.h"
 #include "GameController.h"
 #include "Player.h"
+#include "Bullets.h"
 
 class Enemies : Objects
 {
 
 private:
-
 	Player* player;
+	std::vector<Bullets*> bullets;
 	static int counter;
 	float x, y;
 	float v = 30;
@@ -36,10 +37,10 @@ private:
 	}
 
 	
-	void shoot()
-	{
-		return; 
 
+	Bullets* Shoot()
+	{
+		return new Bullets(x, y, player->GetCoordinate());
 	}
 
 
@@ -68,6 +69,7 @@ public:
 
 	void Update(double timeDelta) override
 	{
+		for (Bullets* n : bullets) n->Update(timeDelta);
 		if (able_to_see())
 		{
 			if (decide_to_move())
@@ -76,7 +78,8 @@ public:
 			}
 			else 
 			{
-				shoot();
+				bullets.push_back(Shoot());
+
 			}
 		}
 	}
@@ -84,6 +87,7 @@ public:
 	void Render() override
 	{
 		sprite->DrawAtPlace(x, y);
+		for (Bullets* n : bullets) n->Render();
 	}
 	/*bool Touch() override;
 	bool Touched() override;*/

@@ -20,6 +20,7 @@ Graphics* graphics; // √лобальное объ€вление указател€ на графический "движок"
 int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE prevInstance, LPWSTR cmd, int nCmdShow) // ќсновной скрипт
 {
 	keyboardHook = SetWindowsHookEx(WH_KEYBOARD_LL, KeyboardProc, NULL, 0);
+	mouseHook = SetWindowsHookEx(WH_MOUSE_LL, MouseProc, hInstance, 0);
 	// ќбъ€вление объекта окно, его параметры
 
 	WNDCLASSEX windowclass;
@@ -94,6 +95,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE prevInstance, LPWSTR cmd, int
 		graphics->EndDraw();
 	}
 	UnhookWindowsHookEx(keyboardHook);
+	UnhookWindowsHookEx(mouseHook);
 	delete graphics; // ќсвобождаем пам€ть
 	return 0;
 }
