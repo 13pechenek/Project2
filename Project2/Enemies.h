@@ -30,8 +30,8 @@ private:
 	{
 		if (!distance_to_Player) return;
 		CalcDistance();
-		float cos = sqrt(pow((player->GetCoordinate().x - this->x), 2)) / distance_to_Player;
-		float sin = sqrt(pow((player->GetCoordinate().y - this->y), 2)) / distance_to_Player;
+		float cos = sqrt(pow((player->GetCoordinate()->x - this->x), 2)) / distance_to_Player;
+		float sin = sqrt(pow((player->GetCoordinate()->y - this->y), 2)) / distance_to_Player;
 		this->x += v * cos * timeDelta;
 		this->y += v * sin * timeDelta;
 	}
@@ -40,13 +40,14 @@ private:
 
 	Bullets* Shoot()
 	{
-		return new Bullets(x, y, player->GetCoordinate());
+
+		//return new Bullets(x, y, player->GetCoordinate());
 	}
 
 
 	void CalcDistance()
 	{
-		this->distance_to_Player = sqrt(pow((player->GetCoordinate().x - x), 2) + pow((player->GetCoordinate().y - y), 2));
+		this->distance_to_Player = sqrt(pow((player->GetCoordinate()->x - x), 2) + pow((player->GetCoordinate()->y - y), 2));
 		return;
 	}
 

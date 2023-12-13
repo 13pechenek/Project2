@@ -3,11 +3,14 @@
 
 Player::Player(float x, float y, Graphics* gfx)
 {
+	this->gfx = gfx;
 	sprite = new Sprites(L"test.png", gfx);
 	this->x = x;
 	this->y = y;
-	mPoint.x = 0;
-	mPoint.y = 0;
+	mPoint->x = 0;
+	mPoint->y = 0;
+	posit.x = x;
+	posit.y = y;
 }
 
 
@@ -81,26 +84,26 @@ void Player::SetInTheBorders()
 }
 
 
-POINT Player::GetCoordinate()
+POINT* Player::GetCoordinate()
 {
-	POINT point;
-	point.x = x;
-	point.y = y;
-	return point;
+	return &posit;
 }
 
 
 Bullets* Player::Shoot()
 {
-	return new Bullets(x, y, mPoint);
+	return new Bullets(x, y, mPoint, gfx);
 }
 
 
-void Player::Update(double timeDelta, KeyDirections key, POINT mPoint)
+void Player::Update(double timeDelta, KeyDirections key, POINT* mPoint)
 {
 	Move(key, timeDelta);
-	if (mPoint.x != 0 && mPoint.y != 0) bullets.push_back(Shoot());
+	this->mPoint = mPoint;
+	if (mPoint->x != 0 && mPoint->y != 0) bullets.push_back(Shoot());
 	for (Bullets* n : bullets) n->Update(timeDelta);
+	posit.x = x;
+	posit.y = y;
 	return;
 }
 

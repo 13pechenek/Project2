@@ -10,18 +10,20 @@ private:
 	static int counter;
 	std::vector<Bullets*> bullets;
 	float x, y, v = 64, vec[2];
+	POINT posit;
 	int countOfBullets = 10;
 	int lives = 3;
 	Sprites* sprite;
+	Graphics* gfx;
 	void Move(KeyDirections key, double timeDelta);
 	void SetInTheBorders();
 	Bullets* Shoot();
-	POINT mPoint;
+	POINT* mPoint = new POINT;
 	void Update(double timeDelta);
 public:
-	POINT GetCoordinate();
+	POINT* GetCoordinate();
 	Player(float x, float y, Graphics* gfx);
-	void Update(double timeDelta, KeyDirections key, POINT mPoint) override;
+	void Update(double timeDelta, KeyDirections key, POINT* mPoint) override;
 	void Render() override;
 	bool Death();
 	/*bool Touch() override;

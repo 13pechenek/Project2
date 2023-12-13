@@ -53,7 +53,7 @@ LRESULT CALLBACK KeyboardProc(int nCode, WPARAM wParam, LPARAM lParam) {
 		}
 		if (currentKey == 'D')
 		{
-			keyDirections.right = true;
+			keyDirections.right = false;
 		}
 	}
 	return CallNextHookEx(keyboardHook, nCode, wParam, lParam);
@@ -62,12 +62,24 @@ LRESULT CALLBACK KeyboardProc(int nCode, WPARAM wParam, LPARAM lParam) {
 bool click = 0;
 LRESULT CALLBACK MouseProc(int nCode, WPARAM wParam, LPARAM lParam)
 {
-	PMSLLHOOKSTRUCT* mouseStruct = (PMSLLHOOKSTRUCT*) lParam;
-	keyDirections.right = 0;
-	if (wParam = WM_LBUTTONDOWN)
+	MOUSEHOOKSTRUCT* mouseStruct = (MOUSEHOOKSTRUCT*) lParam;
+
+	if (wParam == WM_LBUTTONDOWN)
 	{
-		keyDirections.right = 1;
+		Mposition.x = mouseStruct->pt.x;
+		Mposition.y = mouseStruct->pt.y;
 		click = 1;
+	}
+	if (wParam == WM_LBUTTONUP) 
+	{
+		Mposition.x = 0;
+		Mposition.y = 0;
+		click = 0;
+	}
+	if (wParam == WM_MOUSEMOVE && click)
+	{
+		Mposition.x = mouseStruct->pt.x;
+		Mposition.y = mouseStruct->pt.y;
 	}
 	return CallNextHookEx(mouseHook, nCode, wParam, lParam);
 }

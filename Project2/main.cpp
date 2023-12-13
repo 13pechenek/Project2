@@ -88,7 +88,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE prevInstance, LPWSTR cmd, int
 			DispatchMessage(&message); // Отправляем сообщение в винпрок
 		}
 		// Обновление состояния игры и отрисовка текущего состояния игры
-		GameController::Update(keyDirections, Mposition);
+		GameController::Update(keyDirections, &Mposition);
 		GameController::Update();
 		graphics->BeginDraw();
 		GameController::Render();

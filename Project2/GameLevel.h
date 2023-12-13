@@ -18,6 +18,6 @@ public:
 	virtual void Unload() = 0;
 	virtual void Render() = 0;
 	virtual void Update(double timeTotal, double timeDelta) = 0;
-	virtual void Update(double timeTotal, double timeDelta, KeyDirections key, POINT Mpostion) = 0;
+	virtual void Update(double timeTotal, double timeDelta, KeyDirections key, POINT* Mpostion) = 0;
 };
 
