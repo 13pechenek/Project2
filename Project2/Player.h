@@ -7,7 +7,7 @@ class Player : private Objects
 {
 private:
 	static int counter;
-	float x, y, v = 20, vec[2];
+	float x, y, v = 64, vec[2];
 	int countOfBullets = 10;
 	int lives = 3;
 	Sprites* sprite;
@@ -15,6 +15,7 @@ private:
 	void SetInTheBorders();
 	void Shoot();
 public:
+	POINT GetCoordinate();
 	Player(float x, float y, Graphics* gfx);
 	void Update(double timeDelta, KeyDirections key) override;
 	void Render() override;

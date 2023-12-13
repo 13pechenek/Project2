@@ -2,18 +2,19 @@
 #include <cmath>
 #include "Objects.h"
 #include "GameController.h"
+#include "Player.h"
 
 class Enemies : Objects
 {
 
 private:
 
+	Player* player;
 	static int counter;
 	float x, y;
+	float v = 30;
 	float distance_to_Player;
-	bool able_to_move;
 	int count_of_bullets = 20;
-	bool see_Player = true;
 	Sprites* sprite = new Sprites(L"test.png", gfxx);
 	bool decide_to_move()
 	{
@@ -27,11 +28,29 @@ private:
 	{
 		return true;
 	}
-	void move()
+
+
+
+	void move(double timeDelta)
 	{
-		return;
+		CalcDistance();
+		float cos = sqrt(pow((player->GetCoordinate().x - this->x), 2)) / distance_to_Player;
+		float sin = sqrt(pow((player->GetCoordinate().y - this->y), 2)) / distance_to_Player;
+		if (able_to_see())
+		{
+			if (distance_to_Player < 200)
+			{
+				this->x += v * cos * timeDelta;
+				this->y += v * sin * timeDelta;
+			}
+		}
+
+
+
 	}
 
+	
+	
 	void shoot()
 	{
 		return; //say gex
@@ -40,7 +59,7 @@ private:
 
 	void CalcDistance()
 	{
-		// this->distance_to_Player = sqrt(pow((player.x - x), 2) + pow((player.y - y), 2));
+		this->distance_to_Player = sqrt(pow((player->GetCoordinate().x - x), 2) + pow((player->GetCoordinate().y - y), 2));
 		return;
 	}
 
@@ -49,10 +68,11 @@ private:
 
 public:
 	Graphics* gfxx;
-	Enemies(float x, float y)   // Player* player 
+	Enemies(float x, float y, Player* player) 
 	{
-		this->x = x; this->y = y;
-		
+		this->x = x; 
+		this->y = y;
+		this->player = player;
 	}
     void Init(Graphics* gfix);
 
@@ -62,17 +82,17 @@ public:
 
 	void Update(double timeDelta, KeyDirections key) override
 	{
-		if (this->able_to_see())
+		if (able_to_see())
 		{
-			if (this->decide_to_move())
+			if (decide_to_move())
 			{
-				move();
+				move(timeDelta);
 				shoot();
 			}
 
-			else if (this->decide_to_shoot())
+			else if (decide_to_shoot())
 			{
-				move();
+				move(timeDelta);
 				shoot();
 			}
 		}

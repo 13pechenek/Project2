@@ -78,6 +78,13 @@ void Player::SetInTheBorders()
 }
 
 
+POINT Player::GetCoordinate()
+{
+	POINT point;
+	point.x = x;
+	point.y = y;
+	return point;
+}
 
 
 void Player::Update(double timeDelta, KeyDirections key)
