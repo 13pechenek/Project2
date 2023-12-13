@@ -62,8 +62,11 @@ LRESULT CALLBACK KeyboardProc(int nCode, WPARAM wParam, LPARAM lParam) {
 bool click = 0;
 LRESULT CALLBACK MouseProc(int nCode, WPARAM wParam, LPARAM lParam)
 {
-	Mposition.x = 0;
-	Mposition.y = 0;
+	if(!click)
+	{ 
+		Mposition.x = 0;
+		Mposition.y = 0;
+	}
 	MOUSEHOOKSTRUCT* mouseStruct = (MOUSEHOOKSTRUCT*) lParam;
 	if (nCode >= 0 && (wParam == WM_MBUTTONDOWN))
 	{
