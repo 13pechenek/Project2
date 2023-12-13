@@ -81,7 +81,7 @@ public:
 	{
 		sprite->DrawAtPlace(x, y);
 	}
-	bool Touch() override;
-	bool Touched() override;
+	/*bool Touch() override;
+	bool Touched() override;*/
 };
 

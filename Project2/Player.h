@@ -3,7 +3,7 @@
 #include "Sprites.h"
 #include "Objects.h"
 
-class Player : Objects
+class Player : private Objects
 {
 private:
 	float v = 20;
@@ -13,8 +13,8 @@ private:
 	bool able_to_move;
 	int count_of_bullets = 10;
 	int Lives = 3;
-	Sprites* sprite = new Sprites(L"tensor.png", gfxx);
-	bool move(KeyDirections key, double timeDelta)
+	Sprites* sprite;
+	void move(KeyDirections key, double timeDelta)
 	{
 
 		vec[0] = 0;
@@ -90,13 +90,13 @@ private:
 
 
 public:
-	Graphics* gfxx;
-	Player(float x, float y)   // Player* player 
-	{
-		this->x = x; this->y = y;
 
+	Player(float x, float y, Graphics* gfx)   // Player* player 
+	{
+		sprite = new Sprites(L"test.png", gfx);
+		this->x = x; 
+		this->y = y;
 	}
-	void Init(Graphics* gfix);
 
 
 	bool Death()
@@ -115,9 +115,9 @@ public:
 	
 	void Render() override
 	{
-		sprite->DrawAtPlace(x, y);
+		(*sprite).DrawAtPlace(x, y);
 	}
-	bool Touch() override;
-	bool Touched() override;
+	/*bool Touch() override;
+	bool Touched() override;*/
 };
 

@@ -5,11 +5,12 @@ class Objects
 {
 private:
 	static int counter;
-public:
+
+public:	
+	Graphics* gfx;
 	virtual void Update(double timeDelta, KeyDirections key) = 0;
 	virtual void Render() = 0;
-	virtual bool Touch() = 0;
-	virtual bool Touched() = 0;
-	
+	/*virtual bool Touch() = 0;
+	virtual bool Touched() = 0;*/
 };
 
