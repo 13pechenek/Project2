@@ -18,42 +18,28 @@ private:
 	Sprites* sprite = new Sprites(L"test.png", gfxx);
 	bool decide_to_move()
 	{
-		return true;
-	}
-	bool decide_to_shoot()
-	{
-		return false;
+		if (distance_to_Player < 200) return true; else return false;
 	}
 	bool able_to_see()
 	{
 		return true;
 	}
 
-
-
 	void move(double timeDelta)
 	{
+		if (!distance_to_Player) return;
 		CalcDistance();
 		float cos = sqrt(pow((player->GetCoordinate().x - this->x), 2)) / distance_to_Player;
 		float sin = sqrt(pow((player->GetCoordinate().y - this->y), 2)) / distance_to_Player;
-		if (able_to_see())
-		{
-			if (distance_to_Player < 200)
-			{
-				this->x += v * cos * timeDelta;
-				this->y += v * sin * timeDelta;
-			}
-		}
-
-
-
+		this->x += v * cos * timeDelta;
+		this->y += v * sin * timeDelta;
 	}
 
 	
-	
 	void shoot()
 	{
-		return; //say gex
+		return; 
+
 	}
 
 
@@ -80,23 +66,21 @@ public:
 
 
 
-	void Update(double timeDelta, KeyDirections key) override
+	void Update(double timeDelta, KeyDirections key, POINT mPosition) override
 	{
 		if (able_to_see())
 		{
 			if (decide_to_move())
 			{
 				move(timeDelta);
-				shoot();
 			}
-
-			else if (decide_to_shoot())
+			else 
 			{
-				move(timeDelta);
 				shoot();
 			}
 		}
 	}
+	
 	void Render() override
 	{
 		sprite->DrawAtPlace(x, y);
