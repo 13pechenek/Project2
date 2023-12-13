@@ -21,34 +21,38 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE prevInstance, LPWSTR cmd, int
 {
 	keyboardHook = SetWindowsHookEx(WH_KEYBOARD_LL, KeyboardProc, NULL, 0);
 	mouseHook = SetWindowsHookEx(WH_MOUSE_LL, MouseProc, hInstance, 0);
-	// Объявление объекта окно, его параметры
+	
+	HWND windowhandle;
+	MSG msg;
+	WNDCLASSEX wc;
+	wc.cbClsExtra = 0;
+	wc.cbWndExtra = 0;
+	wc.cbSize = sizeof(wc);
+	wc.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);
+	wc.hCursor = LoadCursor(NULL, IDC_ARROW);
+	wc.hIcon = wc.hIconSm = LoadIcon(NULL, IDI_WINLOGO);
+	wc.hInstance = hInstance;
+	wc.lpfnWndProc = WindowProc;
+	wc.style = CS_HREDRAW | CS_VREDRAW;
+	wc.lpszClassName = L"ahfbsidk";
+	wc.lpszMenuName = L"ksjdvb";
 
-	WNDCLASSEX windowclass;
-	ZeroMemory(&windowclass, sizeof(WNDCLASSEX));
-	windowclass.cbSize = sizeof(WNDCLASSEX);
-	windowclass.hbrBackground = (HBRUSH) COLOR_WINDOW;
-	windowclass.hInstance = hInstance;
-	windowclass.lpfnWndProc = WindowProc;
-	windowclass.style = CS_HREDRAW | CS_VREDRAW;
-	windowclass.lpszClassName = L"MainWindow";
-	RegisterClassEx(&windowclass);
+	if (!RegisterClassEx(&wc))
+		return 0;
+	RECT rect{ 0,0,1920,1080 };
+	windowhandle = CreateWindowEx(WS_EX_TOPMOST, L"ahfbsidk", L"ksjdvb", WS_VISIBLE | WS_POPUP, CW_USEDEFAULT, CW_USEDEFAULT, rect.right-rect.left, rect.bottom- rect.top, HWND_DESKTOP, NULL, hInstance, 0);
 
-	// Строим прямоугольник, от которого строится окно
-
-	RECT rect = {0, 0, 800, 600};
-	AdjustWindowRectEx(&rect, WS_OVERLAPPEDWINDOW, false, WS_EX_OVERLAPPEDWINDOW);
-
-	// Создаём окно с нашими параметрами
-
-	HWND windowhandle = CreateWindowEx( WS_EX_OVERLAPPEDWINDOW,
+	if (!windowhandle)
+		return 0;
+	/*HWND windowhandle = CreateWindowEx(WS_EX_OVERLAPPEDWINDOW,
 		L"MainWindow",
 		L"Directx",
 		WS_OVERLAPPEDWINDOW,
-		100, 100,
+		0, 0,
 		rect.right - rect.left, rect.bottom - rect.top,
 		NULL, NULL,
-		hInstance, 0);
-	if (!windowhandle) return -1; // Проверка на успешное создание
+		hInstance, 0);*/
+
 
 
 	// Создаём наш "движок" в куче
@@ -66,8 +70,11 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE prevInstance, LPWSTR cmd, int
 	GameLevel::Init(graphics); 
 	
 	// Открываем наше окно
-
+	HDC hDC = ::GetWindowDC(NULL);
+	::SetWindowPos(windowhandle, NULL, 0, 0, ::GetDeviceCaps(hDC, HORZRES), ::GetDeviceCaps(hDC, VERTRES), SWP_FRAMECHANGED);
 	ShowWindow(windowhandle, nCmdShow); 
+
+	
 
 	// Подготовка класса контроля хода игры
 
@@ -92,6 +99,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE prevInstance, LPWSTR cmd, int
 		GameController::Update();
 		graphics->BeginDraw();
 		GameController::Render();
+		graphics->DrawCircle(Mposition.x, Mposition.y, 5, 0, 0, 1, 1);
 		graphics->EndDraw();
 	}
 	UnhookWindowsHookEx(keyboardHook);

@@ -30,8 +30,8 @@ private:
 	{
 		if (!distance_to_Player) return;
 		CalcDistance();
-		float cos = sqrt(pow((player->GetCoordinate()->x - this->x), 2)) / distance_to_Player;
-		float sin = sqrt(pow((player->GetCoordinate()->y - this->y), 2)) / distance_to_Player;
+		float cos = (player->GetCoordinate()->x - this->x) / distance_to_Player;
+		float sin = (player->GetCoordinate()->y - this->y) / distance_to_Player;
 		this->x += v * cos * timeDelta;
 		this->y += v * sin * timeDelta;
 	}

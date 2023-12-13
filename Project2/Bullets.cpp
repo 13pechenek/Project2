@@ -9,8 +9,8 @@ Bullets::Bullets(float x, float y, POINT* aimPos, Graphics* gfx)
 	this->aimPos = aimPos;
 	distanceToPoint = sqrt(pow((aimPos->x - x), 2) + pow((aimPos->y - y), 2));
 	if (distanceToPoint == 0) return;
-	cos = sqrt(pow((aimPos->x - this->x), 2)) / distanceToPoint;
-	sin = sqrt(pow((aimPos->y - this->y), 2)) / distanceToPoint;
+	Cosin = (aimPos->x - this->x) / distanceToPoint;
+	Sinus = (aimPos->y - this->y) / distanceToPoint;
 }
 
 void Bullets::Update(double timeDelta)
@@ -25,8 +25,8 @@ void Bullets::Update(double timeDelta, KeyDirections key, POINT* mPosition)
 void Bullets::move(double timeDelta)
 {
 	if (!distanceToPoint) return;
-	this->x += v * cos * timeDelta;
-	this->y += v * sin * timeDelta;
+	this->x += v * Cosin * timeDelta;
+	this->y += v * Sinus * timeDelta;
 }
 
 void Bullets::ResetDistance()

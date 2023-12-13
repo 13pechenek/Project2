@@ -1,6 +1,7 @@
 #pragma once
 #include <Windows.h>
 #include "GameStructs.h"
+#include "Graphics.h"
 
 DWORD currentKey;
 HHOOK keyboardHook;
@@ -56,6 +57,11 @@ LRESULT CALLBACK KeyboardProc(int nCode, WPARAM wParam, LPARAM lParam) {
 			keyDirections.right = false;
 		}
 	}
+	if (wParam == WM_KEYDOWN)
+	{
+		KBDLLHOOKSTRUCT* pKeyStruct = (KBDLLHOOKSTRUCT*)lParam;
+		if(pKeyStruct->vkCode == VK_ESCAPE) { PostQuitMessage(0);  return 0; }
+	}
 	return CallNextHookEx(keyboardHook, nCode, wParam, lParam);
 }
 
@@ -63,12 +69,13 @@ bool click = 0;
 LRESULT CALLBACK MouseProc(int nCode, WPARAM wParam, LPARAM lParam)
 {
 	MOUSEHOOKSTRUCT* mouseStruct = (MOUSEHOOKSTRUCT*) lParam;
-
+	
 	if (wParam == WM_LBUTTONDOWN)
 	{
 		Mposition.x = mouseStruct->pt.x;
 		Mposition.y = mouseStruct->pt.y;
 		click = 1;
+
 	}
 	if (wParam == WM_LBUTTONUP) 
 	{

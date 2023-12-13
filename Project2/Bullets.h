@@ -5,7 +5,7 @@
 class Bullets : private Objects
 {
 private:
-	float x, y, v=100, sin, cos, distanceToPoint;
+	float x, y, v=100, Sinus, Cosin, distanceToPoint;
 	POINT* aimPos;
 	Graphics* gfx;
 	void move(double timeDelta);
