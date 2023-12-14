@@ -17,7 +17,7 @@ void Bullets::Update(double timeDelta)
 {
 	move(timeDelta);
 }
-void Bullets::Update(double timeDelta, KeyDirections key, POINT* mPosition)
+void Bullets::Update(double timeDelta, double timeTotal, KeyDirections key, POINT* mPosition)
 {
 	return;
 }
@@ -36,5 +36,5 @@ void Bullets::ResetDistance()
 
 void Bullets::Render()
 {
-	gfx->DrawCircle(x, y, 2.5, 1, 0, 0, 1);
+	gfx->DrawCircle(x, y, 2.5, 1, 1, 1, 1);
 }
