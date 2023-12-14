@@ -94,7 +94,10 @@
     <Image Include="test.png">
       <Filter>Файлы ресурсов</Filter>
     </Image>
-    <Image Include="..\..\..\..\Desktop\cat.png">
+    <Image Include="cat.png">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="Wall.png">
       <Filter>Файлы ресурсов</Filter>
     </Image>
   </ItemGroup>

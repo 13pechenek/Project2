@@ -2,12 +2,15 @@
 
 #include "GameLevel.h"
 #include "Player.h"
+#include "Walls.h"
 
 
 class Level1 : public GameLevel
 {
+private:
 	double vec[2]{ 0, 0 };
 	Sprites* cat;
+	Walls* wall;
 	Player* player;
 public:
 	void Load() override;

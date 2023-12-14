@@ -1,30 +1,37 @@
-/*#pragma once
+#pragma once
 #include "Objects.h"
 
-class Walls : Objects
+class Walls : private Objects
 {
 private:
-	float x, y;
-	float len, width;
+	float left, top;
+	float right, bottom;
 	static int counter;
 	POINT posit;
 	Sprites* sprite;
-
-public:
-	Walls(float x, float y, float len, float width, Graphics* gfx)
+	void Update(double timeDelta) 
 	{
-		this->x = x;
-		this->y = y;
-		this->len = len;
-		this->width = width;
-		sprite =  new  Sprites(L"wall.png", gfx);
+
+	}
+	void Update(double timeDelta, double timeTotal, KeyDirections key, POINT* mPoint)
+	{
+
+	}
+public:
+	Walls(float left, float top, float right, float bottom, Graphics* gfx)
+	{
+		this->left = left;
+		this->top = top;
+		this->right = right;
+		this->bottom = bottom;
+		sprite =  new  Sprites(L"Wall.png", gfx);
 	}
 
 	void Render() override
 	{
-		sprite->DrawAtPlace(x, y);
+		sprite->DrawAtPlace(left, top, right, bottom);
 	}
 
 
-};*/
+};
 

@@ -156,8 +156,9 @@
     <ClInclude Include="Walls.h" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\..\..\..\Desktop\cat.png" />
+    <Image Include="cat.png" />
     <Image Include="test.png" />
+    <Image Include="Wall.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

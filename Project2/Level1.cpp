@@ -9,7 +9,7 @@ void Level1::Load()
 {
 
 	player = new Player(0, 0, gfx);
-	cat = new Sprites(L"cat.png", gfx);
+	wall = new Walls(100, 100, 150, 500, gfx);
 }
 
 void Level1::Unload()
@@ -19,15 +19,8 @@ void Level1::Unload()
 void Level1::Render() 
 {
 	gfx->ClearScreen(0.7f, 0.7f, 0.2f);
+	wall->Render();
 	player->Render();
-	cat->DrawAtPlace(x1,y100,x2,y2);
-	cat->DrawAtPlace(x3,y3,x4,y4);
-	cat->DrawAtPlace(x5, y5, x6, y6);
-	cat->DrawAtPlace(x7, y7, x8, y8);
-	cat->DrawAtPlace(x9, y9, x10, y10);
-	cat->DrawAtPlace(x11, y11, x12, y12);
-	cat->DrawAtPlace(x13, y13, x14, y14);
-	cat->DrawAtPlace(x15, y15, x16, y16);
 }
 void Level1::Update(double timeTotal, double timeDelta)
 {
