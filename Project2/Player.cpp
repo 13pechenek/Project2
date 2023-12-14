@@ -90,22 +90,36 @@ POINT* Player::GetCoordinate()
 	return &posit;
 }
 
-
-Bullets* Player::Shoot()
+void Player::Reload(double timeTotal)
 {
-	return new Bullets(x, y, mPoint, gfx);
+	if (lastShot + 5 < timeTotal && !countOfBullets) countOfBullets = 10;
+	else return;
+}
+
+Bullets* Player::Shoot(double timeTotal)
+{
+	Reload(timeTotal);
+	if (lastShot + 0.5 < timeTotal && countOfBullets) 
+	{
+		lastShot = timeTotal;
+		countOfBullets--;
+		return new Bullets(x + 47, y + 31, mPoint, gfx);
+	}
+	else return nullptr;
 }
 
 
-void Player::Update(double timeDelta, KeyDirections key, POINT* mPoint)
+void Player::Update(double timeDelta, double timeTotal, KeyDirections key, POINT* mPoint)
 {
 	Move(key, timeDelta);
 	this->mPoint = mPoint;
-	if (mPoint->x != 0 && mPoint->y != 0) bullets.push_back(Shoot());
 	for (Bullets* n : bullets) n->Update(timeDelta);
 	posit.x = x;
 	posit.y = y;
 	gfx->MoveGeometry(x, y, sprite->geometry);
+	if (mPoint->x == 0 && mPoint->y == 0) return;
+	Bullets* bullet = Shoot(timeTotal);
+	if(bullet!=nullptr) bullets.push_back(bullet);
 	return;
 }
 

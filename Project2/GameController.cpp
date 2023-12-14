@@ -11,6 +11,7 @@ void GameController::LoadInitialLevel(GameLevel* level)
 {
 	Loading = true;
 	currentLevel = level;
+	Timer = new FPSControl();
 	currentLevel->Load();
 	Loading = false;
 }
@@ -42,7 +43,7 @@ void GameController::Init()
 {
 	Loading = true;
 	currentLevel = 0;
-	Timer = new FPSControl();
+
 }
 void GameController::SubInit() 
 {
