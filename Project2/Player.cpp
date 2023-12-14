@@ -1,7 +1,7 @@
 #include "Player.h"
 
 
-Player::Player(float x, float y, Graphics* gfx)
+Player::Player(float x, float y, Graphics* gfx, std::vector<Walls*>::iterator walls, std::vector<Enemies*>::iterator enemies)
 {
 	this->gfx = gfx;
 	sprite = new Sprites(L"test.png", gfx);
@@ -11,7 +11,9 @@ Player::Player(float x, float y, Graphics* gfx)
 	mPoint->y = 0;
 	posit.x = x;
 	posit.y = y;
+	this->walls = walls;
 }
+
 
 
 void Player::Move(KeyDirections key, double timeDelta)

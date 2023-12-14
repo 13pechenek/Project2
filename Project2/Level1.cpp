@@ -7,9 +7,11 @@ float y100 = rand() % 1080, y2 = rand() % 1080, y3 = rand() % 1080, y4 = rand() 
 
 void Level1::Load()
 {
-
-	player = new Player(0, 0, gfx);
-	wall = new Walls(100, 100, 150, 500, gfx);
+	std::vector<Walls*> w;
+	std::vector<Enemies*> e;
+	walls = w.begin();
+	enemies = e.begin();
+	player = new Player(0, 0, gfx, walls, enemies);
 }
 
 void Level1::Unload()
@@ -19,7 +21,6 @@ void Level1::Unload()
 void Level1::Render() 
 {
 	gfx->ClearScreen(0.7f, 0.7f, 0.2f);
-	wall->Render();
 	player->Render();
 }
 void Level1::Update(double timeTotal, double timeDelta)

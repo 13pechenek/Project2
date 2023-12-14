@@ -3,10 +3,15 @@
 #include "Sprites.h"
 #include "Objects.h"
 #include "Bullets.h"
+#include "Walls.h"
+
+class Enemies;
 
 class Player : private Objects
 {
 private:
+	std::vector<Walls*>::iterator walls;
+	std::vector<Enemies*>::iterator enemies;
 	std::vector<Bullets*> bullets;
 	float x, y, v = 64, vec[2];
 	double lastShot = 0;
@@ -23,7 +28,7 @@ private:
 	void Reload(double timeTotal);
 public:
 	POINT* GetCoordinate();
-	Player(float x, float y, Graphics* gfx);
+	Player(float x, float y, Graphics* gfx, std::vector<Walls*>::iterator walls, std::vector<Enemies*>::iterator enemies);
 	void Update(double timeDelta, double timeTotal, KeyDirections key, POINT* mPoint) override;
 	void Render() override;
 	bool Death();

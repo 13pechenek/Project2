@@ -2,6 +2,7 @@
 #include "Objects.h"
 #include "Sprites.h"
 
+
 class Bullets : private Objects
 {
 private:

@@ -10,6 +10,7 @@ class Enemies : Objects
 
 private:
 	Player* player;
+	std::vector<Walls*>::iterator walls;
 	std::vector<Bullets*> bullets;
 	static int counter;
 	float x, y;
@@ -56,11 +57,12 @@ private:
 
 public:
 	Graphics* gfxx;
-	Enemies(float x, float y, Player* player) 
+	Enemies(float x, float y, Player* player, std::vector<Walls*>::iterator walls)
 	{
 		this->x = x; 
 		this->y = y;
 		this->player = player;
+		this->walls = walls;
 	}
     void Init(Graphics* gfix);
 
