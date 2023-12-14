@@ -7,6 +7,7 @@ Graphics::Graphics()
 	factory = NULL; 
 	rendertarget = NULL;
 	brush = NULL;
+	prev = D2D1_RECT_F{0, 0, 0, 0};
 }
 
 Graphics::~Graphics()
@@ -74,16 +75,13 @@ void Graphics::DrawRect(float x, float y, float a, float b, float red, float gre
 ID2D1RectangleGeometry* Graphics::GetRectGeometry(float x, float y, float a, float b)
 {
 	ID2D1RectangleGeometry* rect;
-	prev.bottom = y + b;
-	prev.top = y;
-	prev.left = x;
-	prev.right = x + a;
 	HRESULT hr = factory->CreateRectangleGeometry(D2D1::Rect(x, y, x + a, y + b), &rect);
 	return rect;
 }
 
 ID2D1RectangleGeometry* Graphics::MoveGeometry(float x, float y, ID2D1RectangleGeometry* rect)
 {
+	rect->GetRect(&prev);
 	HRESULT hr = factory->CreateRectangleGeometry(D2D1::Rect(x, y, x + prev.right-prev.left, y + prev.bottom-prev.top), &rect);
 	return rect;
 }
