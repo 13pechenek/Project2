@@ -21,6 +21,7 @@ void Player::Move(KeyDirections key, double timeDelta)
 	if (key.up && !key.left && !key.right && !key.down) {
 		vec[1] = -1;
 		vec[0] = 0;
+
 	}
 	if (key.up && key.left && !key.right && !key.down) {
 		vec[1] = -0.7071;

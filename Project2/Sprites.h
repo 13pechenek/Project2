@@ -13,6 +13,7 @@ public:
 	Sprites(const wchar_t* filename, Graphics* gfx);
 	~Sprites();
 	void Draw();
-	void DrawAtPlace(float x, float y);
+	void DrawAtPlace(float left, float top);
+	void DrawAtPlace(float left, float top, float right, float bottom);
 };
 

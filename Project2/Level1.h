@@ -7,7 +7,7 @@
 class Level1 : public GameLevel
 {
 	double vec[2]{ 0, 0 };
-	Sprites* sprites;
+	Sprites* cat;
 	Player* player;
 public:
 	void Load() override;

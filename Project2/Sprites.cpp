@@ -38,3 +38,11 @@ void Sprites::DrawAtPlace(float x, float y) {
 	gfx->GetRenderTarget()->DrawBitmap(bmp, D2D1::RectF(x, y, bmp->GetSize().width+x, bmp->GetSize().height+y), 1.0f, D2D1_BITMAP_INTERPOLATION_MODE::D2D1_BITMAP_INTERPOLATION_MODE_NEAREST_NEIGHBOR, D2D1::RectF(0.0f, 0.0f, bmp->GetPixelSize().width, bmp->GetSize().height));
 }
 
+
+void Sprites::DrawAtPlace(float left, float top, float right, float bottom) {
+	
+	gfx->GetRenderTarget()->DrawBitmap(bmp, D2D1::RectF(left, top, right, bottom), 1.0f, D2D1_BITMAP_INTERPOLATION_MODE::D2D1_BITMAP_INTERPOLATION_MODE_NEAREST_NEIGHBOR, D2D1::RectF(left, top, right, bottom));
+}
+
+
+
