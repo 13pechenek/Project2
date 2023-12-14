@@ -104,6 +104,7 @@ void Player::Update(double timeDelta, KeyDirections key, POINT* mPoint)
 	for (Bullets* n : bullets) n->Update(timeDelta);
 	posit.x = x;
 	posit.y = y;
+	gfx->MoveGeometry(x, y, sprite->geometry);
 	return;
 }
 
@@ -116,8 +117,9 @@ void Player::Update(double timeDelta)
 
 void Player::Render()
 {
-	(*sprite).DrawAtPlace(x, y);
+	sprite->DrawAtPlace(x, y);
 	for (Bullets* n : bullets) n->Render();
+	
 }
 
 

@@ -96,7 +96,6 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE prevInstance, LPWSTR cmd, int
 		}
 		// Обновление состояния игры и отрисовка текущего состояния игры
 		GameController::Update(keyDirections, &Mposition);
-		GameController::Update();
 		graphics->BeginDraw();
 		GameController::Render();
 		graphics->DrawCircle(Mposition.x, Mposition.y, 5, 0, 0, 1, 1);

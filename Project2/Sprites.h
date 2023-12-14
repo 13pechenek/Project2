@@ -7,7 +7,9 @@ class Sprites
 {
 	Graphics* gfx;
 	ID2D1Bitmap* bmp;
+
 public:
+	ID2D1RectangleGeometry* geometry;
 	Sprites(const wchar_t* filename, Graphics* gfx);
 	~Sprites();
 	void Draw();

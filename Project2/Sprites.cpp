@@ -4,6 +4,7 @@ Sprites::Sprites(const wchar_t* filename, Graphics* gfx)
 {
 
 	this->gfx = gfx;
+	
 	bmp = NULL;
 	HRESULT hr;
 	IWICImagingFactory* wicFactory = NULL;
@@ -20,6 +21,7 @@ Sprites::Sprites(const wchar_t* filename, Graphics* gfx)
 	if (wicDecoder) wicDecoder->Release();
 	if (wicFrame) wicFrame->Release();
 	if (wicConverter) wicConverter->Release();
+	geometry = gfx->GetRectGeometry(0, 0, bmp->GetSize().width, bmp->GetSize().height);
 }
 
 Sprites::~Sprites() {
@@ -32,5 +34,7 @@ void Sprites::Draw()
 }
 
 void Sprites::DrawAtPlace(float x, float y) {
+	geometry = gfx->MoveGeometry(x, y, geometry);
 	gfx->GetRenderTarget()->DrawBitmap(bmp, D2D1::RectF(x, y, bmp->GetSize().width+x, bmp->GetSize().height+y), 1.0f, D2D1_BITMAP_INTERPOLATION_MODE::D2D1_BITMAP_INTERPOLATION_MODE_NEAREST_NEIGHBOR, D2D1::RectF(0.0f, 0.0f, bmp->GetPixelSize().width, bmp->GetSize().height));
 }
+
