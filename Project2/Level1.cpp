@@ -30,7 +30,7 @@ void Level1::Unload()
 void Level1::Render() 
 {
 	gfx->ClearScreen(0.7f, 0.7f, 0.2f);
-	player->Render();
+	if(!player->Death()) player->Render();
 }
 void Level1::Update(double timeTotal, double timeDelta)
 {

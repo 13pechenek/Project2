@@ -1,6 +1,7 @@
 #include "Player.h"
 #include "Enemies.h"
 #include "Walls.h"
+#include "Bullets.h"
 
 Player::Player(float x, float y, Graphics* gfx)
 {
@@ -12,7 +13,7 @@ Player::Player(float x, float y, Graphics* gfx)
 	mPoint->y = 0;
 	posit = new POINT;
 	posit->x = x;
-	sprite->geometry;
+	geometry = sprite->geometry;
 }
 void Player::Init(std::vector<Walls*>::iterator walls, std::vector<Enemies*>::iterator enemies)
 {
@@ -66,46 +67,48 @@ void Player::Move(KeyDirections key, double timeDelta)
 		vec[0] = 0;
 		vec[1] = 0;
 	}
+	SetInTheBorders(timeDelta);
 	y += v * timeDelta * vec[1];
 	x += v * timeDelta * vec[0];
-	this->SetInTheBorders();
 }
 
-void Player::SetInTheBorders()
+void Player::SetInTheBorders(double timeDelta)
 {
-	if (y > 1045)
+	float dx = v * timeDelta * vec[0];
+	float dy = v * timeDelta * vec[1];
+	if (y + dy > 1045)
 	{
-		y = 1045;
+		vec[1] = 0;
 	}
-	else if (y < 0)
+	else if (y + dy< 0)
 	{
-		y = 0;
+		vec[1] = 0;
 	}
-	if (x > 1870)
+	if (x + dx > 1870)
 	{
-		x = 1870;
+		vec[0] = 0;
 	}
-	else if (x < 0)
+	else if (x + dx < 0)
 	{
-		x = 0;
+		vec[0] = 0;
 	}
 	for (int i = 0; walls[i] != nullptr; i++)
 	{
-		if (x +50 > walls[i]->left && x < walls[i]->left)
+		if (x + dx +49 > walls[i]->left && x + dx < walls[i]->left && y + dy   < walls[i]->bottom && y + dy  > walls[i]->top-36)
 		{
-			x = walls[i]->left - 50;
+			vec[0] = 0;
 		}
-		else if (x < walls[i]->right && x+50 > walls[i]->right)
+		else if (x + dx < walls[i]->right && x + dx +49 > walls[i]->right && y + dy   < walls[i]->bottom && y + dy + 36 > walls[i]->top)
 		{
-			x = walls[i]->right + 50;
+			vec[0] = 0;
 		}
-		if (y + 35 > walls[i]->bottom && y < walls[i]->bottom)
+		if (y + dy + 36 > walls[i]->bottom && y + dy < walls[i]->bottom && x + dx + 49  > walls[i]->left && x + dx < walls[i]->right)
 		{
-			y = walls[i]->bottom + 35;
+			vec[1] = 0;
 		}
-		else if (y < walls[i]->top && y + 35 > walls[i]->top)
+		else if (y + dy  < walls[i]->top && y + dy + 36 > walls[i]->top && x + dx + 49 > walls[i]->left && x + dx < walls[i]->right)
 		{
-			y = walls[i]->top - 35;
+			vec[1] = 0;
 		}
 	}
 
@@ -130,7 +133,7 @@ Bullets* Player::Shoot(double timeTotal)
 	{
 		lastShot = timeTotal;
 		countOfBullets--;
-		return new Bullets(x + 47, y + 31, mPoint, gfx);
+		return new Bullets(x + 47, y + 31, mPoint, gfx, enemies, walls, nullptr);
 	}
 	else return nullptr;
 }
@@ -145,8 +148,10 @@ void Player::Update(double timeDelta, double timeTotal, KeyDirections key, POINT
 		i++;
 	}
 	Move(key, timeDelta);
+	geometry = gfx->MoveGeometry(x, y, geometry);
 	this->mPoint = mPoint;
 	for (Bullets* n : bullets) n->Update(timeDelta, timeTotal);
+	for (Bullets* n : bullets) n->EnemyTouched();
 	posit->x = x;
 	posit->y = y;
 	gfx->MoveGeometry(x, y, sprite->geometry);
@@ -175,11 +180,19 @@ void Player::Render()
 	}
 	for (i = 0; walls[i] != nullptr; i++) walls[i]->Render();
 	sprite->DrawAtPlace(x, y);
+	gfx->GetRenderTarget()->FillGeometry(geometry, gfx->SetBrush());
 }
 
 
 bool Player::Death()
 {
-	return lives == 0;
+	return lives <= 0;
 }
+
+void Player::Damaged()
+{
+	lives--;
+}
+
+
 

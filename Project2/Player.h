@@ -2,16 +2,16 @@
 #include "GameStructs.h"
 #include "Sprites.h"
 #include "Objects.h"
-#include "Bullets.h"
+
 
 
 class Enemies;
 class Walls;
+class Bullets;
 
 class Player : private Objects
 {
 private:
-	ID2D1RectangleGeometry* rectangle;
 	std::vector<Walls*>::iterator walls;
 	std::vector<Enemies*>::iterator enemies;
 	std::vector<Bullets*> bullets;
@@ -23,17 +23,20 @@ private:
 	Sprites* sprite;
 	Graphics* gfx;
 	void Move(KeyDirections key, double timeDelta);
-	void SetInTheBorders();
+	void SetInTheBorders(double timeDelta);
 	Bullets* Shoot(double timeTotal);
 	POINT* mPoint = new POINT;
 	void Update(double timeDelta, double timeTotal);
 	void Reload(double timeTotal);
 public:
+	ID2D1RectangleGeometry* geometry;
 	POINT* GetCoordinate();
 	void Init(std::vector<Walls*>::iterator walls, std::vector<Enemies*>::iterator enemies);
 	Player(float x, float y, Graphics* gfx);
 	void Update(double timeDelta, double timeTotal, KeyDirections key, POINT* mPoint) override;
 	void Render() override;
 	bool Death();
-	ID2D1RectangleGeometry* GetGeometry() { return rectangle; }
+	ID2D1RectangleGeometry* GetGeometry() { return geometry; }
+	void Damaged();
+
 };

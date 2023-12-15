@@ -17,6 +17,7 @@ private:
 	std::vector<Walls*>::iterator walls;
 	std::vector<Bullets*> bullets;
 	int countOfBullets = 10;
+	int lives = 1;
 	float x, y;
 	float v = 30;
 	float distance_to_Player;
@@ -56,7 +57,8 @@ private:
 		{
 			lastShot = timeTotal;
 			countOfBullets--;
-			return new Bullets(x + 25, y + 17, player->GetCoordinate(), gfx);
+			std::vector<Enemies*>::iterator it;
+			return new Bullets(x + 25, y + 17, player->GetCoordinate(), gfx, it, walls, player);
 		}
 		else return nullptr;
 	}
@@ -75,6 +77,7 @@ private:
 
 	}
 public:
+	ID2D1RectangleGeometry* geometry;
 	Enemies(float x, float y, Player* player, std::vector<Walls*>::iterator walls, Graphics* gfx)
 	{
 		this->gfx = gfx;
@@ -83,13 +86,11 @@ public:
 		this->player = player;
 		this->walls = walls;
 		sprite = new Sprites(L"test.png", gfx);
+		geometry = sprite->geometry;
 	}
 
 
 	
-
-
-
 	void Update(double timeDelta, double timeTotal) override
 	{
 		CalcDistance();
@@ -107,6 +108,8 @@ public:
 			}
 		}
 		for (Bullets* n : bullets) n->Update(timeDelta, timeTotal);
+		for (Bullets* n : bullets) n->PlayerTouched();
+		geometry = gfx->MoveGeometry(x, y, geometry);
 	}
 	
 	void Render() override
@@ -114,7 +117,17 @@ public:
 		sprite->DrawAtPlace(x, y);
 		gfx->GetRenderTarget()->FillGeometry(ray, gfx->SetBrush());
 		for(Bullets* n : bullets) n->Render();
+		gfx->GetRenderTarget()->FillGeometry(geometry, gfx->SetBrush());
+
 	}
 	bool Overlapped(Walls* wall, ID2D1TransformedGeometry* ray);
+
+	bool Damaged()
+	{
+		lives--;
+		return lives;
+	}
+
+
 };
 

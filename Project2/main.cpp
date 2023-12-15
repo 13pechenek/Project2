@@ -40,8 +40,8 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE prevInstance, LPWSTR cmd, int
 	if (!RegisterClassEx(&wc))
 		return 0;
 	RECT rect{ 0,0,1920,1080 };
-	//windowhandle = CreateWindowEx(0, L"ahfbsidk", L"ksjdvb", 0, CW_USEDEFAULT, CW_USEDEFAULT, rect.right-rect.left, rect.bottom- rect.top, HWND_DESKTOP, NULL, hInstance, 0);
-	windowhandle = CreateWindowEx(WS_EX_TOPMOST, L"ahfbsidk", L"ksjdvb", WS_VISIBLE | WS_POPUP, CW_USEDEFAULT, CW_USEDEFAULT, rect.right - rect.left, rect.bottom - rect.top, HWND_DESKTOP, NULL, hInstance, 0);
+	windowhandle = CreateWindowEx(0, L"ahfbsidk", L"ksjdvb", 0, CW_USEDEFAULT, CW_USEDEFAULT, rect.right-rect.left, rect.bottom- rect.top, HWND_DESKTOP, NULL, hInstance, 0);
+	//windowhandle = CreateWindowEx(WS_EX_TOPMOST, L"ahfbsidk", L"ksjdvb", WS_VISIBLE | WS_POPUP, CW_USEDEFAULT, CW_USEDEFAULT, rect.right - rect.left, rect.bottom - rect.top, HWND_DESKTOP, NULL, hInstance, 0);
 	if (!windowhandle)
 		return 0;
 	/*HWND windowhandle = CreateWindowEx(WS_EX_OVERLAPPEDWINDOW,
@@ -87,7 +87,6 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE prevInstance, LPWSTR cmd, int
 	message.message = WM_NULL;
 
 	// Создаем цикл с выходом через крестик
-
 	while(message.message != WM_QUIT)
 	{
 		if (PeekMessage(&message, NULL, 0, 0, PM_REMOVE)) {

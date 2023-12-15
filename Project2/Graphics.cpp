@@ -89,12 +89,26 @@ ID2D1RectangleGeometry* Graphics::GetRectGeometry(float x, float y, float a, flo
 	return rect;
 }
 
+ID2D1EllipseGeometry* Graphics::GetEllipseGeometry(float x, float y, float a, float b)
+{
+	ID2D1EllipseGeometry* ellipse;
+	HRESULT hr = factory->CreateEllipseGeometry(D2D1::Ellipse(D2D1::Point2F(x,y), a, b), &ellipse);
+	return ellipse;
+}
+
+
 ID2D1RectangleGeometry* Graphics::MoveGeometry(float x, float y, ID2D1RectangleGeometry* rect)
 {
 	rect->GetRect(&prev);
 	HRESULT hr = factory->CreateRectangleGeometry(D2D1::Rect(x, y, x + prev.right-prev.left, y + prev.bottom-prev.top), &rect);
 	return rect;
 }
+ID2D1EllipseGeometry* Graphics::MoveGeometry(float x, float y, ID2D1EllipseGeometry* ellipse)
+{
+	factory->CreateEllipseGeometry(D2D1::Ellipse(D2D1::Point2F(x, y), 2.5, 2.5), &ellipse);
+	return ellipse;
+}
+
 
 void Graphics::DrawGeom(ID2D1Geometry* rect)
 {
