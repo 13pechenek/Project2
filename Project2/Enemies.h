@@ -9,18 +9,20 @@ class Enemies : Objects
 {
 
 private:
+	Sprites* sprite;
+	Graphics* gfx;
 	Player* player;
 	std::vector<Walls*>::iterator walls;
 	std::vector<Bullets*> bullets;
-	static int counter;
+	int countOfBullets = 10;
 	float x, y;
 	float v = 30;
 	float distance_to_Player;
+	float lastShot = 0;
 	int count_of_bullets = 20;
-	Sprites* sprite = new Sprites(L"test.png", gfxx);
 	bool decide_to_move()
 	{
-		if (distance_to_Player < 200) return true; else return false;
+		if (distance_to_Player > 1000) return true; else return false;
 	}
 	bool able_to_see()
 	{
@@ -29,20 +31,30 @@ private:
 
 	void move(double timeDelta)
 	{
+
 		if (!distance_to_Player) return;
-		CalcDistance();
 		float cos = (player->GetCoordinate()->x - this->x) / distance_to_Player;
 		float sin = (player->GetCoordinate()->y - this->y) / distance_to_Player;
 		this->x += v * cos * timeDelta;
 		this->y += v * sin * timeDelta;
 	}
 
-	
-
-	Bullets* Shoot()
+	void Reload(double timeTotal)
 	{
+		if (lastShot + 5 < timeTotal && !countOfBullets) countOfBullets = 10;
+		else return;
+	}
 
-		//return new Bullets(x, y, player->GetCoordinate());
+	Bullets* Shoot(double timeTotal)
+	{
+		Reload(timeTotal);
+		if (lastShot + 1 < timeTotal && countOfBullets)
+		{
+			lastShot = timeTotal;
+			countOfBullets--;
+			return new Bullets(x + 25, y + 17, player->GetCoordinate(), gfx);
+		}
+		else return nullptr;
 	}
 
 
@@ -54,25 +66,29 @@ private:
 
 
 
-
-public:
-	Graphics* gfxx;
-	Enemies(float x, float y, Player* player, std::vector<Walls*>::iterator walls)
+	void Update(double timeDelta, double timeTotal, KeyDirections key, POINT* mpoint) override
 	{
+
+	}
+public:
+	Enemies(float x, float y, Player* player, std::vector<Walls*>::iterator walls, Graphics* gfx)
+	{
+		this->gfx = gfx;
 		this->x = x; 
 		this->y = y;
 		this->player = player;
 		this->walls = walls;
+		sprite = new Sprites(L"test.png", gfx);
 	}
-    void Init(Graphics* gfix);
 
 	
 
 
 
-	void Update(double timeDelta) override
+	void Update(double timeDelta, double timeTotal) override
 	{
-		for (Bullets* n : bullets) n->Update(timeDelta);
+		//for (Bullets* n : bullets) n->Update(timeDelta);
+		CalcDistance();
 		if (able_to_see())
 		{
 			if (decide_to_move())
@@ -81,16 +97,18 @@ public:
 			}
 			else 
 			{
-				bullets.push_back(Shoot());
+				Bullets* bull = Shoot(timeTotal);
+				if(bull!=nullptr) bullets.push_back(bull);
 
 			}
 		}
+		for (Bullets* n : bullets) n->Update(timeDelta, timeTotal);
 	}
 	
 	void Render() override
 	{
 		sprite->DrawAtPlace(x, y);
-		for (Bullets* n : bullets) n->Render();
+		for(Bullets* n : bullets) n->Render();
 	}
 	/*bool Touch() override;
 	bool Touched() override;*/

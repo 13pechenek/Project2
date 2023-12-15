@@ -7,11 +7,16 @@ float y100 = rand() % 1080, y2 = rand() % 1080, y3 = rand() % 1080, y4 = rand() 
 
 void Level1::Load()
 {
-	std::vector<Walls*> w;
-	std::vector<Enemies*> e;
+
+	player = new Player(0, 0, gfx);
+	e.push_back(new Enemies(200, 200, player, walls, gfx));
+	e.push_back(nullptr);
 	walls = w.begin();
 	enemies = e.begin();
-	player = new Player(0, 0, gfx, walls, enemies);
+	player->Init(walls, enemies);
+
+
+
 }
 
 void Level1::Unload()

@@ -1,7 +1,7 @@
 #include "Player.h"
+#include "Enemies.h"
 
-
-Player::Player(float x, float y, Graphics* gfx, std::vector<Walls*>::iterator walls, std::vector<Enemies*>::iterator enemies)
+Player::Player(float x, float y, Graphics* gfx)
 {
 	this->gfx = gfx;
 	sprite = new Sprites(L"test.png", gfx);
@@ -9,11 +9,14 @@ Player::Player(float x, float y, Graphics* gfx, std::vector<Walls*>::iterator wa
 	this->y = y;
 	mPoint->x = 0;
 	mPoint->y = 0;
-	posit.x = x;
-	posit.y = y;
-	this->walls = walls;
+	posit = new POINT;
+	posit->x = x;
 }
-
+void Player::Init(std::vector<Walls*>::iterator walls, std::vector<Enemies*>::iterator enemies)
+{
+	this->walls = walls;
+	this->enemies = enemies;
+}
 
 
 void Player::Move(KeyDirections key, double timeDelta)
@@ -89,7 +92,7 @@ void Player::SetInTheBorders()
 
 POINT* Player::GetCoordinate()
 {
-	return &posit;
+	return posit;
 }
 
 void Player::Reload(double timeTotal)
@@ -113,11 +116,17 @@ Bullets* Player::Shoot(double timeTotal)
 
 void Player::Update(double timeDelta, double timeTotal, KeyDirections key, POINT* mPoint)
 {
+	int i = 0;
+	while (enemies[i] != nullptr) 
+	{
+		enemies[i]->Update(timeDelta, timeTotal);
+		i++;
+	}
 	Move(key, timeDelta);
 	this->mPoint = mPoint;
-	for (Bullets* n : bullets) n->Update(timeDelta);
-	posit.x = x;
-	posit.y = y;
+	for (Bullets* n : bullets) n->Update(timeDelta, timeTotal);
+	posit->x = x;
+	posit->y = y;
 	gfx->MoveGeometry(x, y, sprite->geometry);
 	if (mPoint->x == 0 && mPoint->y == 0) return;
 	Bullets* bullet = Shoot(timeTotal);
@@ -126,7 +135,7 @@ void Player::Update(double timeDelta, double timeTotal, KeyDirections key, POINT
 }
 
 
-void Player::Update(double timeDelta)
+void Player::Update(double timeDelta, double timeTotal)
 {
 	return;
 }
@@ -136,6 +145,12 @@ void Player::Render()
 {
 	sprite->DrawAtPlace(x, y);
 	for (Bullets* n : bullets) n->Render();
+	int i = 0;
+	while (enemies[i] != nullptr)
+	{
+		enemies[i]->Render();
+		i++;
+	}
 	
 }
 

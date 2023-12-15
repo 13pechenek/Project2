@@ -11,6 +11,8 @@ class Level1 : public GameLevel
 private:
 	std::vector<Walls*>::iterator walls;
 	std::vector<Enemies*>::iterator enemies;
+	std::vector<Walls*> w;
+	std::vector<Enemies*> e;
 	double vec[2]{ 0, 0 };
 	Sprites* cat;
 	Player* player;

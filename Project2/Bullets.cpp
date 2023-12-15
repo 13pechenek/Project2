@@ -13,7 +13,7 @@ Bullets::Bullets(float x, float y, POINT* aimPos, Graphics* gfx)
 	Sinus = (aimPos->y - this->y) / distanceToPoint;
 }
 
-void Bullets::Update(double timeDelta)
+void Bullets::Update(double timeDelta, double timeTotal)
 {
 	move(timeDelta);
 }

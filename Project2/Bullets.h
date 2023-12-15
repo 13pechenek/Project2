@@ -14,7 +14,7 @@ private:
 	void Update(double timeDelta, double timeTotal, KeyDirections key, POINT* mpoint) override;
 public:
 	Bullets(float x, float y, POINT* aimPos, Graphics* gfx);
-	void Update(double timeDelta) override;
+	void Update(double timeDelta, double timeTotal) override;
 	void Render() override;
 };
 
