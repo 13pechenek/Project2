@@ -3,13 +3,15 @@
 #include "Sprites.h"
 #include "Objects.h"
 #include "Bullets.h"
-#include "Walls.h"
+
 
 class Enemies;
+class Walls;
 
 class Player : private Objects
 {
 private:
+	ID2D1RectangleGeometry* rectangle;
 	std::vector<Walls*>::iterator walls;
 	std::vector<Enemies*>::iterator enemies;
 	std::vector<Bullets*> bullets;
@@ -33,7 +35,5 @@ public:
 	void Update(double timeDelta, double timeTotal, KeyDirections key, POINT* mPoint) override;
 	void Render() override;
 	bool Death();
-	/*bool Touch() override;
-	bool Touched() override;*/
+	ID2D1RectangleGeometry* GetGeometry() { return rectangle; }
 };
-

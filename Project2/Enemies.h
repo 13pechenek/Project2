@@ -9,6 +9,8 @@ class Enemies : Objects
 {
 
 private:
+	ID2D1RectangleGeometry* rectangle;
+	ID2D1TransformedGeometry* ray;
 	Sprites* sprite;
 	Graphics* gfx;
 	Player* player;
@@ -26,7 +28,9 @@ private:
 	}
 	bool able_to_see()
 	{
-		return true;
+		ray = gfx->GetRay(x,y,player->GetCoordinate());
+		for (int i = 0; walls[i] != nullptr; i++) if(Overlapped(walls[i], ray)) return true;
+		return false;
 	}
 
 	void move(double timeDelta)
@@ -81,13 +85,13 @@ public:
 		sprite = new Sprites(L"test.png", gfx);
 	}
 
+
 	
 
 
 
 	void Update(double timeDelta, double timeTotal) override
 	{
-		//for (Bullets* n : bullets) n->Update(timeDelta);
 		CalcDistance();
 		if (able_to_see())
 		{
@@ -108,9 +112,9 @@ public:
 	void Render() override
 	{
 		sprite->DrawAtPlace(x, y);
+		gfx->GetRenderTarget()->FillGeometry(ray, gfx->SetBrush());
 		for(Bullets* n : bullets) n->Render();
 	}
-	/*bool Touch() override;
-	bool Touched() override;*/
+	bool Overlapped(Walls* wall, ID2D1TransformedGeometry* ray);
 };
 

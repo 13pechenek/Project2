@@ -19,6 +19,7 @@ public:
 	{
 		return rendertarget;
 	}
+	ID2D1SolidColorBrush* SetBrush();
 	void BeginDraw() // Объявление начала отрисовки
 	{ 
 		rendertarget->BeginDraw();
@@ -29,6 +30,7 @@ public:
 	}
 	ID2D1RectangleGeometry* GetRectGeometry(float x, float y, float a, float b);
 	ID2D1RectangleGeometry* MoveGeometry(float x, float y, ID2D1RectangleGeometry* rect);
+	ID2D1TransformedGeometry* GetRay(float x, float y, POINT* point);
 	void ClearScreen(float r, float g, float b); // Заполнение экрана одним цветом
 	void DrawCircle(float x, float y, float radius, float r, float g, float b, float a); // Отрисовка круга
 	void DrawRect(float x, float y, float a, float b, float red, float green, float blue); // Отрисовка прямоугольника

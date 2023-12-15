@@ -6,14 +6,18 @@ float x1 = rand() % 1920, x2 = rand() % 1920, x3 = rand() % 1920, x4 = rand() % 
 float y100 = rand() % 1080, y2 = rand() % 1080, y3 = rand() % 1080, y4 = rand() % 1080, y5 = rand() % 1080, y6 = rand() % 1080, y7 = rand() % 1080, y8 = rand() % 1080, y9 = rand() % 1080, y10 = rand() % 1080, y11 = rand() % 1080, y12 = rand() % 1080, y13 = rand() % 1080, y14 = rand() % 1080, y15 = rand() % 1080, y16 = rand() % 1080;
 
 void Level1::Load()
-{
+{	
+	w.push_back(new Walls(100, 100, 150, 300, gfx));
+	w.push_back(nullptr);
+	walls = w.begin();
 
 	player = new Player(0, 0, gfx);
 	e.push_back(new Enemies(200, 200, player, walls, gfx));
 	e.push_back(nullptr);
-	walls = w.begin();
+
 	enemies = e.begin();
 	player->Init(walls, enemies);
+	
 
 
 

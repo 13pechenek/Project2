@@ -1,4 +1,5 @@
 #include "Graphics.h"
+#include <cmath>
 
 Graphics::Graphics()
 {
@@ -46,6 +47,15 @@ bool Graphics::Init(HWND windowHandle)
 
 }
 
+
+
+
+ID2D1SolidColorBrush* Graphics::SetBrush()
+{
+	brush->SetColor(D2D1::ColorF(0, 0, 1, 1));
+	return brush;
+}
+
 void Graphics::ClearScreen(float r, float g, float b) 
 {
 	rendertarget->Clear(D2D1::ColorF(r, g, b)); // Заполняем цель единым цветом
@@ -91,3 +101,20 @@ void Graphics::DrawGeom(ID2D1Geometry* rect)
 	brush->SetColor(D2D1::ColorF(0, 0, 1, 1));
 	rendertarget->FillGeometry(rect, brush);
 }
+
+ID2D1TransformedGeometry* Graphics::GetRay(float x, float y, POINT* point)
+{
+	double distance = sqrt(pow(x - point->x, 2) + pow(y - point->y, 2));
+	double sinus = (y - point->y) / distance;
+	double cosinus = (x - point->x) / distance;
+	ID2D1RectangleGeometry* rectGeom;
+	ID2D1TransformedGeometry* Tgeom;
+	factory->CreateRectangleGeometry(D2D1::Rect(x + 0.0, y + 0.0, x + distance, y + 5.0), &rectGeom);
+	float angle;
+	if (sinus < 0 ) angle = -std::acosf(cosinus)*180/3.14 +180;
+	else if (sinus >= 0) angle = std::acosf(cosinus)*180/3.14 +180;
+
+	factory->CreateTransformedGeometry(rectGeom,D2D1::Matrix3x2F::Rotation(angle, D2D1::Point2F(x,y)), &Tgeom);
+	return Tgeom;
+}
+

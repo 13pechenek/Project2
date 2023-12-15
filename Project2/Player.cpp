@@ -1,5 +1,6 @@
 #include "Player.h"
 #include "Enemies.h"
+#include "Walls.h"
 
 Player::Player(float x, float y, Graphics* gfx)
 {
@@ -11,6 +12,7 @@ Player::Player(float x, float y, Graphics* gfx)
 	mPoint->y = 0;
 	posit = new POINT;
 	posit->x = x;
+	sprite->geometry;
 }
 void Player::Init(std::vector<Walls*>::iterator walls, std::vector<Enemies*>::iterator enemies)
 {
@@ -71,22 +73,42 @@ void Player::Move(KeyDirections key, double timeDelta)
 
 void Player::SetInTheBorders()
 {
-	if (y > 500)
+	if (y > 1045)
 	{
-		y = 500;
+		y = 1045;
 	}
 	else if (y < 0)
 	{
 		y = 0;
 	}
-	if (x > 700)
+	if (x > 1870)
 	{
-		x = 700;
+		x = 1870;
 	}
 	else if (x < 0)
 	{
 		x = 0;
 	}
+	for (int i = 0; walls[i] != nullptr; i++)
+	{
+		if (x +50 > walls[i]->left && x < walls[i]->left)
+		{
+			x = walls[i]->left - 50;
+		}
+		else if (x < walls[i]->right && x+50 > walls[i]->right)
+		{
+			x = walls[i]->right + 50;
+		}
+		if (y + 35 > walls[i]->bottom && y < walls[i]->bottom)
+		{
+			y = walls[i]->bottom + 35;
+		}
+		else if (y < walls[i]->top && y + 35 > walls[i]->top)
+		{
+			y = walls[i]->top - 35;
+		}
+	}
+
 }
 
 
@@ -143,7 +165,7 @@ void Player::Update(double timeDelta, double timeTotal)
 
 void Player::Render()
 {
-	sprite->DrawAtPlace(x, y);
+	
 	for (Bullets* n : bullets) n->Render();
 	int i = 0;
 	while (enemies[i] != nullptr)
@@ -151,7 +173,8 @@ void Player::Render()
 		enemies[i]->Render();
 		i++;
 	}
-	
+	for (i = 0; walls[i] != nullptr; i++) walls[i]->Render();
+	sprite->DrawAtPlace(x, y);
 }
 
 
@@ -159,3 +182,4 @@ bool Player::Death()
 {
 	return lives == 0;
 }
+
