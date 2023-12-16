@@ -152,27 +152,23 @@ void Player::Update(double timeDelta, double timeTotal, KeyDirections key, POINT
 	Move(key, timeDelta);
 	geometry = gfx->MoveGeometry(x, y, geometry);
 	this->mPoint = mPoint;
-	for (Bullets* n : bullets) if (n!=nullptr) n->Update(timeDelta, timeTotal);
-	for (Bullets* n : bullets) if (n != nullptr) n->EnemyTouched();
-	for (Bullets* n : bullets)
+	for (int i = 0; bullets.out(i)->data != nullptr; i++) bullets.out(i)->data->Update(timeDelta, timeTotal);
+	for (int i = 0; bullets.out(i)->data != nullptr; i++) bullets.out(i)->data->EnemyTouched();
+	for (int i = 0; bullets.out(i)->data != nullptr; i++)
 	{
-		if (n != nullptr) 
-		{ 
-			if (n->WallTouched()) 
-			{
-				delete n;
-				bullets.erase(bullets.begin() + i);
+		if (bullets.out(i)->data->WallTouched())
+		{
+			delete bullets.out(i)->data;
+			bullets.removeAt(i);
 				i--; 
-			} 
-		}
-			i++;
+		} 
 	}
 	posit->x = x;
 	posit->y = y;
 	gfx->MoveGeometry(x, y, sprite->geometry);
 	if (mPoint->x == 0 && mPoint->y == 0) return;
 	Bullets* bullet = Shoot(timeTotal);
-	if(bullet!=nullptr) bullets.push_back(bullet);
+	if(bullet!=nullptr) bullets.append(bullet);
 	return;
 }
 
@@ -186,7 +182,7 @@ void Player::Update(double timeDelta, double timeTotal)
 void Player::Render()
 {
 	
-	for (Bullets* n : bullets) if(n!=nullptr) n->Render();
+	for (int i = 0; bullets.out(i)->data != nullptr; i++) bullets.out(i)->data->Render();
 	int i = 0;
 	while (enemies->out(i)->data != nullptr)
 	{

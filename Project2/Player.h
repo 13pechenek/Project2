@@ -15,7 +15,7 @@ private:
 	Player();
 	SinglyLinkedList<Enemies*>* enemies;
 	SinglyLinkedList<Walls*>* walls;
-	std::vector<Bullets*> bullets;
+	SinglyLinkedList<Bullets*> bullets;
 	float x, y, v = 64, vec[2];
 	double lastShot = 0;
 	POINT* posit;
