@@ -33,9 +33,6 @@
     <ClCompile Include="Sprites.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="Objects.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
     <ClCompile Include="Enemies.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
@@ -43,9 +40,6 @@
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="Bullets.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="Walls.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="InputOutput.cpp">
@@ -75,9 +69,6 @@
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="GameStructs.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="Objects.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="Enemies.h">

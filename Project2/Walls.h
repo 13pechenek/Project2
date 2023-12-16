@@ -1,21 +1,13 @@
 #pragma once
-#include "Objects.h"
 
-class Walls : private Objects
+
+class Walls
 {
 private:
 	Walls();
 	POINT posit;
 	Sprites* sprite;
 	Graphics* gfx;
-	void Update(double timeDelta, double timeTotal) 
-	{
-
-	}
-	void Update(double timeDelta, double timeTotal, KeyDirections key, POINT* mPoint)
-	{
-
-	}
 public:
 	float left, top;
 	float right, bottom;
@@ -36,7 +28,7 @@ public:
 		geometry->Release();
 	}
 
-	void Render() override
+	void Render()
 	{
 		sprite->DrawAtPlace(left, top, right, bottom);
 	}

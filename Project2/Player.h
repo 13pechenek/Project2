@@ -1,7 +1,7 @@
 #pragma once
 #include "GameStructs.h"
 #include "Sprites.h"
-#include "Objects.h"
+
 
 
 
@@ -9,14 +9,14 @@ class Enemies;
 class Walls;
 class Bullets;
 
-class Player : private Objects
+class Player
 {
 private:
 	Player();
 	SinglyLinkedList<Enemies*>* enemies;
 	SinglyLinkedList<Walls*>* walls;
 	SinglyLinkedList<Bullets*> bullets;
-	float x, y, v = 64, vec[2];
+	float x, y, v = 120, vec[2];
 	double lastShot = 0;
 	POINT* posit;
 	int countOfBullets = 10;
@@ -34,8 +34,8 @@ public:
 	POINT* GetCoordinate();
 	void Init(SinglyLinkedList<Walls*>* walls, SinglyLinkedList<Enemies*>* enemies);
 	Player(float x, float y, Graphics* gfx);
-	void Update(double timeDelta, double timeTotal, KeyDirections key, POINT* mPoint) override;
-	void Render() override;
+	void Update(double timeDelta, double timeTotal, KeyDirections key, POINT* mPoint);
+	void Render();
 	bool Death();
 	ID2D1RectangleGeometry* GetGeometry() { return geometry; }
 	void Damaged();

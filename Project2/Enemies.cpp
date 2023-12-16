@@ -58,10 +58,7 @@ Bullets* Enemies::Shoot(double timeTotal)
 	else return nullptr;
 }
 
-void Enemies::Update(double timeDelta, double timeTotal, KeyDirections key, POINT* mpoint)
-{
 
-}
 
 Enemies::Enemies(float x, float y, Player* player, SinglyLinkedList<Walls*>* walls, Graphics* gfx)
 {

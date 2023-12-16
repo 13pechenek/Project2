@@ -136,10 +136,8 @@
     <ClCompile Include="Level1.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="GameLevel.cpp" />
-    <ClCompile Include="Objects.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Sprites.cpp" />
-    <ClCompile Include="Walls.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Bullets.h" />
@@ -152,7 +150,6 @@
     <ClInclude Include="GameStructs.h" />
     <ClInclude Include="InputOutput.h" />
     <ClInclude Include="Level1.h" />
-    <ClInclude Include="Objects.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Sprites.h" />
     <ClInclude Include="Walls.h" />

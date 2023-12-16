@@ -16,7 +16,7 @@ Bullets::Bullets(float x, float y, POINT* aimPos, Graphics* gfx, SinglyLinkedLis
 	if (distanceToPoint == 0) return;
 	Cosin = (aimPos->x - this->x) / distanceToPoint;
 	Sinus = (aimPos->y - this->y) / distanceToPoint;
-	geometry = gfx->GetEllipseGeometry(x, y, 2.5, 2.5);
+	geometry = gfx->GetEllipseGeometry(x, y, 5, 5);
 }
 
 void Bullets::Update(double timeDelta, double timeTotal)
@@ -24,10 +24,7 @@ void Bullets::Update(double timeDelta, double timeTotal)
 	move(timeDelta);
 
 }
-void Bullets::Update(double timeDelta, double timeTotal, KeyDirections key, POINT* mPosition)
-{
-	return;
-}
+
 
 void Bullets::move(double timeDelta)
 {
@@ -44,7 +41,7 @@ void Bullets::ResetDistance()
 
 void Bullets::Render()
 {
-	gfx->DrawCircle(x, y, 2.5, 1, 1, 0, 1);
+	gfx->DrawCircle(x, y, 5, 1, 1, 0, 1);
 	geometry = gfx->MoveGeometry(x, y, geometry);
 }
 
