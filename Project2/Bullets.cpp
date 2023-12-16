@@ -13,7 +13,6 @@ Bullets::Bullets(float x, float y, POINT* aimPos, Graphics* gfx, SinglyLinkedLis
 	this->y = y;
 	this->aimPos = aimPos;
 	distanceToPoint = sqrt(pow((aimPos->x - x), 2) + pow((aimPos->y - y), 2));
-	if (distanceToPoint == 0) return;
 	Cosin = (aimPos->x - this->x) / distanceToPoint;
 	Sinus = (aimPos->y - this->y) / distanceToPoint;
 	geometry = gfx->GetEllipseGeometry(x, y, 5, 5);
@@ -28,8 +27,6 @@ void Bullets::Update(double timeDelta, double timeTotal)
 
 void Bullets::move(double timeDelta)
 {
-
-	if (!distanceToPoint) return;
 	x += v * Cosin * timeDelta;
 	y += v * Sinus * timeDelta;
 }
@@ -77,6 +74,7 @@ bool Bullets::PlayerTouched()
 
 bool Bullets::WallTouched()
 {
+	if (x - 5 < 0 || x + 5 > 1920 || y - 5 < 0 || y + 5 > 1080) return true;
 	D2D1_GEOMETRY_RELATION* relation = new D2D1_GEOMETRY_RELATION;
 	for (int i = 0; walls->out(i) != nullptr; i++)
 	{
