@@ -13,8 +13,8 @@ class Player : private Objects
 {
 private:
 	Player();
-	std::vector<Walls*>::iterator walls;
-	std::vector<Enemies*>::iterator enemies;
+	SinglyLinkedList<Enemies*>* enemies;
+	SinglyLinkedList<Walls*>* walls;
 	std::vector<Bullets*> bullets;
 	float x, y, v = 64, vec[2];
 	double lastShot = 0;
@@ -32,7 +32,7 @@ private:
 public:
 	ID2D1RectangleGeometry* geometry;
 	POINT* GetCoordinate();
-	void Init(std::vector<Walls*>::iterator walls, std::vector<Enemies*>::iterator enemies);
+	void Init(SinglyLinkedList<Walls*>* walls, SinglyLinkedList<Enemies*>* enemies);
 	Player(float x, float y, Graphics* gfx);
 	void Update(double timeDelta, double timeTotal, KeyDirections key, POINT* mPoint) override;
 	void Render() override;

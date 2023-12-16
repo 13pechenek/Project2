@@ -12,10 +12,7 @@ class Level1 : public GameLevel
 private:
 	SinglyLinkedList<Walls*> w;
 	SinglyLinkedList<Enemies*> e;
-	double vec[2]{ 0.0, 0.0 };
 public:
-
-
 	Player* player;
 	void Load() override;
 	void Unload() override;

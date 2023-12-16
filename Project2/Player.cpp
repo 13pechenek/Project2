@@ -15,7 +15,7 @@ Player::Player(float x, float y, Graphics* gfx)
 	posit = new POINT;
 	geometry = sprite->geometry;
 }
-void Player::Init(std::vector<Walls*>::iterator walls, std::vector<Enemies*>::iterator enemies)
+void Player::Init(SinglyLinkedList<Walls*>* walls, SinglyLinkedList<Enemies*>* enemies)
 {
 	this->walls = walls;
 	this->enemies = enemies;
@@ -92,7 +92,7 @@ void Player::SetInTheBorders(double timeDelta)
 	{
 		vec[0] = 0;
 	}
-	for (int i = 0; walls[i] != nullptr; i++)
+	for (int i = 0; walls != nullptr; i++)
 	{
 		if (x + dx +49 > walls[i]->left && x + dx < walls[i]->left && y + dy   < walls[i]->bottom && y + dy  > walls[i]->top-36)
 		{
