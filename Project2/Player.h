@@ -12,6 +12,7 @@ class Bullets;
 class Player : private Objects
 {
 private:
+	Player();
 	std::vector<Walls*>::iterator walls;
 	std::vector<Enemies*>::iterator enemies;
 	std::vector<Bullets*> bullets;
@@ -38,5 +39,6 @@ public:
 	bool Death();
 	ID2D1RectangleGeometry* GetGeometry() { return geometry; }
 	void Damaged();
+	~Player();
 
 };

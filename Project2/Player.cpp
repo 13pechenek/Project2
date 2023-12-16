@@ -3,6 +3,7 @@
 #include "Walls.h"
 #include "Bullets.h"
 
+
 Player::Player(float x, float y, Graphics* gfx)
 {
 	this->gfx = gfx;
@@ -12,7 +13,6 @@ Player::Player(float x, float y, Graphics* gfx)
 	mPoint->x = 0;
 	mPoint->y = 0;
 	posit = new POINT;
-	posit->x = x;
 	geometry = sprite->geometry;
 }
 void Player::Init(std::vector<Walls*>::iterator walls, std::vector<Enemies*>::iterator enemies)
@@ -147,11 +147,25 @@ void Player::Update(double timeDelta, double timeTotal, KeyDirections key, POINT
 		enemies[i]->Update(timeDelta, timeTotal);
 		i++;
 	}
+	i = 0;
 	Move(key, timeDelta);
 	geometry = gfx->MoveGeometry(x, y, geometry);
 	this->mPoint = mPoint;
-	for (Bullets* n : bullets) n->Update(timeDelta, timeTotal);
-	for (Bullets* n : bullets) n->EnemyTouched();
+	for (Bullets* n : bullets) if (n!=nullptr) n->Update(timeDelta, timeTotal);
+	for (Bullets* n : bullets) if (n != nullptr) n->EnemyTouched();
+	for (Bullets* n : bullets)
+	{
+		if (n != nullptr) 
+		{ 
+			if (n->WallTouched()) 
+			{
+				delete n;
+				bullets.erase(bullets.begin() + i);
+				i--; 
+			} 
+		}
+			i++;
+	}
 	posit->x = x;
 	posit->y = y;
 	gfx->MoveGeometry(x, y, sprite->geometry);
@@ -171,7 +185,7 @@ void Player::Update(double timeDelta, double timeTotal)
 void Player::Render()
 {
 	
-	for (Bullets* n : bullets) n->Render();
+	for (Bullets* n : bullets) if(n!=nullptr) n->Render();
 	int i = 0;
 	while (enemies[i] != nullptr)
 	{
@@ -192,6 +206,13 @@ bool Player::Death()
 void Player::Damaged()
 {
 	lives--;
+}
+
+Player::~Player()
+{
+	delete sprite;
+	delete posit;
+	geometry->Release();
 }
 
 

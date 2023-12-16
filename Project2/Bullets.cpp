@@ -76,3 +76,24 @@ bool Bullets::PlayerTouched()
 		}
 	return false;
 }
+
+
+bool Bullets::WallTouched()
+{
+	D2D1_GEOMETRY_RELATION* relation = new D2D1_GEOMETRY_RELATION;
+	for (int i = 0; walls[i] != nullptr; i++)
+	{
+		geometry->CompareWithGeometry(walls[i]->geometry, NULL, relation);
+		if (*relation != D2D1_GEOMETRY_RELATION_DISJOINT)
+		{
+			return true;
+		}
+	}
+	return false;
+}
+
+Bullets::~Bullets()
+{
+	geometry->Release();
+}
+

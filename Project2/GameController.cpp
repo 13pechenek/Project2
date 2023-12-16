@@ -45,15 +45,6 @@ void GameController::Init()
 	currentLevel = 0;
 
 }
-void GameController::SubInit() 
-{
-	Timer->SetFreq();
-	Timer->Reset();
-}
-void GameController::TimerRefresh()
-{
-	Timer->Reset();
-}
 
 
 void GameController::Update(KeyDirections key, POINT* MPostion)
@@ -61,4 +52,10 @@ void GameController::Update(KeyDirections key, POINT* MPostion)
 	if (Loading) return;
 	Timer->Update();
 	currentLevel->Update(Timer->GetTimeTotal(), Timer->GetTimeDelta(), key, MPostion);
+}
+
+void GameController::UnloadCurrentLevel()
+{
+	delete currentLevel;
+	delete Timer;
 }

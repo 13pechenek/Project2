@@ -4,8 +4,7 @@
 class Walls : private Objects
 {
 private:
-
-	static int counter;
+	Walls();
 	POINT posit;
 	Sprites* sprite;
 	Graphics* gfx;
@@ -20,7 +19,7 @@ private:
 public:
 	float left, top;
 	float right, bottom;
-	ID2D1RectangleGeometry* rectangle;
+	ID2D1RectangleGeometry* geometry;
 	Walls(float left, float top, float right, float bottom, Graphics* gfx)
 	{
 		this->left = left;
@@ -29,13 +28,17 @@ public:
 		this->bottom = bottom;
 		sprite =  new  Sprites(L"Wall.png", gfx);
 		this->gfx = gfx;
-		rectangle = gfx->GetRectGeometry(left, top, right - left, bottom - top);
+		geometry = gfx->GetRectGeometry(left, top, right - left, bottom - top);
+	}
+	~Walls()
+	{
+		delete sprite;
+		geometry->Release();
 	}
 
 	void Render() override
 	{
 		sprite->DrawAtPlace(left, top, right, bottom);
-		//gfx->GetRenderTarget()->FillGeometry(rectangle, gfx->SetBrush());
 	}
 
 

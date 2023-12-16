@@ -48,6 +48,9 @@
     <ClCompile Include="Walls.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="InputOutput.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Graphics.h">
@@ -89,6 +92,9 @@
     <ClInclude Include="Walls.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
+    <ClInclude Include="InputOutput.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="test.png">
@@ -100,5 +106,8 @@
     <Image Include="Wall.png">
       <Filter>Файлы ресурсов</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="lvl.txt" />
   </ItemGroup>
 </Project>

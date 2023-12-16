@@ -132,6 +132,7 @@
     <ClCompile Include="Enemies.cpp" />
     <ClCompile Include="GameController.cpp" />
     <ClCompile Include="Graphics.cpp" />
+    <ClCompile Include="InputOutput.cpp" />
     <ClCompile Include="Level1.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="GameLevel.cpp" />
@@ -149,6 +150,7 @@
     <ClInclude Include="GameController.h" />
     <ClInclude Include="CallbackF.h" />
     <ClInclude Include="GameStructs.h" />
+    <ClInclude Include="InputOutput.h" />
     <ClInclude Include="Level1.h" />
     <ClInclude Include="Objects.h" />
     <ClInclude Include="Player.h" />
@@ -159,6 +161,9 @@
     <Image Include="cat.png" />
     <Image Include="test.png" />
     <Image Include="Wall.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="lvl.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

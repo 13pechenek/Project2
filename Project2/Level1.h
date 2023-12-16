@@ -5,18 +5,18 @@
 #include "Walls.h"
 #include "Enemies.h"
 
+class InputOutput;
 
 class Level1 : public GameLevel
 {
 private:
-	std::vector<Walls*>::iterator walls;
-	std::vector<Enemies*>::iterator enemies;
-	std::vector<Walls*> w;
-	std::vector<Enemies*> e;
-	double vec[2]{ 0, 0 };
-	Sprites* cat;
-	Player* player;
+	SinglyLinkedList<Walls*> w;
+	SinglyLinkedList<Enemies*> e;
+	double vec[2]{ 0.0, 0.0 };
 public:
+
+
+	Player* player;
 	void Load() override;
 	void Unload() override;
 	void Render() override;

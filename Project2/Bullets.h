@@ -10,7 +10,8 @@ class Enemies;
 class Bullets : private Objects
 {
 private:
-	float x, y, v=100, Sinus, Cosin, distanceToPoint;
+	Bullets();
+	float x, y, v = 100, Sinus = 0, Cosin = 0, distanceToPoint;
 	POINT* aimPos;
 	Graphics* gfx;
 	std::vector<Enemies*>::iterator enemies;
@@ -27,6 +28,7 @@ public:
 	void Render() override;
 	bool EnemyTouched();
 	bool PlayerTouched();
-	void WallTouched();
+	bool WallTouched();
+	~Bullets();
 };
 

@@ -102,6 +102,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE prevInstance, LPWSTR cmd, int
 	}
 	UnhookWindowsHookEx(keyboardHook);
 	UnhookWindowsHookEx(mouseHook);
+	GameController::UnloadCurrentLevel();
 	delete graphics; // Освобождаем память
 	return 0;
 }

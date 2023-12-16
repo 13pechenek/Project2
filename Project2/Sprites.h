@@ -5,6 +5,7 @@
 
 class Sprites
 {
+	Sprites();
 	Graphics* gfx;
 	ID2D1Bitmap* bmp;
 
