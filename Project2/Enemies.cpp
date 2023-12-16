@@ -19,7 +19,7 @@ bool Enemies::decide_to_move()
 bool Enemies::able_to_see()
 {
 	ray = gfx->GetRay(x, y, player->GetCoordinate());
-	for (int i = 0; walls[i] != nullptr; i++) if (Overlapped(walls[i], ray)) return true;
+	for (int i = 0; walls->out(i)->data != nullptr; i++) if (Overlapped(walls->out(i)->data, ray)) return true;
 	return false;
 }
 
@@ -53,8 +53,8 @@ Bullets* Enemies::Shoot(double timeTotal)
 	{
 		lastShot = timeTotal;
 		countOfBullets--;
-		std::vector<Enemies*>::iterator it;
-		return new Bullets(x + 25, y + 17, player->GetCoordinate(), gfx, it, walls, player);
+		SinglyLinkedList<Enemies*> enem;
+		return new Bullets(x + 25, y + 17, player->GetCoordinate(), gfx, enem , walls, player);
 	}
 	else return nullptr;
 }
@@ -64,7 +64,7 @@ void Enemies::Update(double timeDelta, double timeTotal, KeyDirections key, POIN
 
 }
 
-Enemies::Enemies(float x, float y, Player* player, std::vector<Walls*>::iterator walls, Graphics* gfx)
+Enemies::Enemies(float x, float y, Player* player, SinglyLinkedList<Walls*>* walls, Graphics* gfx)
 {
 	this->gfx = gfx;
 	this->x = x;

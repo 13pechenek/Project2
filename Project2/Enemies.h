@@ -15,8 +15,8 @@ private:
 	Sprites* sprite;
 	Graphics* gfx;
 	Player* player;
-	std::vector<Walls*>::iterator walls;
-	std::vector<Bullets*> bullets;
+	SinglyLinkedList<Walls*>* walls;
+	SinglyLinkedList<Bullets*> bullets;
 	int countOfBullets = 10;
 	int lives = 1;
 	float x, y;
@@ -38,7 +38,7 @@ public:
 	void Render() override;
 	bool Overlapped(Walls* wall, ID2D1TransformedGeometry* ray);
 	bool Damaged();
-	Enemies(float x, float y, Player* player, std::vector<Walls*>::iterator walls, Graphics* gfx);
+	Enemies(float x, float y, Player* player, SinglyLinkedList<Walls*>* walls, Graphics* gfx);
 	~Enemies();
 
 };
