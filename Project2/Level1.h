@@ -12,6 +12,7 @@ class Level1 : public GameLevel
 private:
 	SinglyLinkedList<Walls*> w;
 	SinglyLinkedList<Enemies*> e;
+	Sprites* backgroung = new Sprites(L"Background.jpg", gfx);
 public:
 	Player* player;
 	void Load() override;

@@ -19,7 +19,7 @@ bool Enemies::decide_to_move()
 bool Enemies::able_to_see()
 {
 	ray = gfx->GetRay(x, y, player->GetCoordinate());
-	for (int i = 0; walls->out(i)->data != nullptr; i++) if (Overlapped(walls->out(i)->data, ray)) return true;
+	for (int i = 0; walls->out(i) != nullptr; i++) if (Overlapped(walls->out(i)->data, ray)) return true;
 	return false;
 }
 
@@ -70,7 +70,7 @@ Enemies::Enemies(float x, float y, Player* player, SinglyLinkedList<Walls*>* wal
 	this->y = y;
 	this->player = player;
 	this->walls = walls;
-	sprite = new Sprites(L"test.png", gfx);
+	sprite = new Sprites(L"Enemy.jpg", gfx);
 	geometry = sprite->geometry;
 }
 
@@ -90,18 +90,15 @@ void Enemies::Update(double timeDelta, double timeTotal)
 
 		}
 	}
-	for (int i = 0; bullets.out(i)->data != nullptr; i++) bullets.out(i)->data->Update(timeDelta, timeTotal);
-	for (int i = 0; bullets.out(i)->data != nullptr; i++) bullets.out(i)->data->PlayerTouched();
+	for (int i = 0; bullets.out(i) != nullptr; i++) bullets.out(i)->data->Update(timeDelta, timeTotal);
+	for (int i = 0; bullets.out(i) != nullptr; i++) bullets.out(i)->data->PlayerTouched();
 	geometry = gfx->MoveGeometry(x, y, geometry);
 }
 
 void Enemies::Render()
 {
 	sprite->DrawAtPlace(x, y);
-	gfx->GetRenderTarget()->FillGeometry(ray, gfx->SetBrush());
-	for (int i = 0; bullets.out(i)->data != nullptr; i++) bullets.out(i)->data->Render();
-	gfx->GetRenderTarget()->FillGeometry(geometry, gfx->SetBrush());
-
+	for (int i = 0; bullets.out(i) != nullptr; i++) bullets.out(i)->data->Render();
 }
 
 bool Enemies::Damaged()
@@ -113,7 +110,7 @@ bool Enemies::Damaged()
 Enemies::~Enemies()
 {
 	delete sprite;
-	for (int i = 0; bullets.out(i)->data != nullptr; i++) delete bullets.out(i)->data;
+	for (int i = 0; bullets.out(i) != nullptr; i++) delete bullets.out(i)->data;
 	geometry->Release();
 	rectangle->Release();
 	ray->Release();

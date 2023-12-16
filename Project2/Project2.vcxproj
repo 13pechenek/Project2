@@ -158,7 +158,10 @@
     <ClInclude Include="Walls.h" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="Background.jpg" />
     <Image Include="cat.png" />
+    <Image Include="Enemy.jpg" />
+    <Image Include="Player.png" />
     <Image Include="test.png" />
     <Image Include="Wall.png" />
   </ItemGroup>

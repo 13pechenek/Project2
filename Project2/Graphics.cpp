@@ -123,12 +123,12 @@ ID2D1TransformedGeometry* Graphics::GetRay(float x, float y, POINT* point)
 	double cosinus = (x - point->x) / distance;
 	ID2D1RectangleGeometry* rectGeom;
 	ID2D1TransformedGeometry* Tgeom;
-	factory->CreateRectangleGeometry(D2D1::Rect(x + 0.0, y + 0.0, x + distance, y + 5.0), &rectGeom);
+	factory->CreateRectangleGeometry(D2D1::Rect(x + 25.0, y + 25.0, x + distance + 25, y + 5.0 + 25), &rectGeom);
 	float angle;
 	if (sinus < 0 ) angle = -std::acosf(cosinus)*180/3.14 +180;
 	else if (sinus >= 0) angle = std::acosf(cosinus)*180/3.14 +180;
 
-	factory->CreateTransformedGeometry(rectGeom,D2D1::Matrix3x2F::Rotation(angle, D2D1::Point2F(x,y)), &Tgeom);
+	factory->CreateTransformedGeometry(rectGeom,D2D1::Matrix3x2F::Rotation(angle, D2D1::Point2F(x+25.0,y+25.0)), &Tgeom);
 	return Tgeom;
 }
 

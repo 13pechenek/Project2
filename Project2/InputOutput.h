@@ -5,7 +5,7 @@
 class InputOutput
 {
 public:
-	static void Input(Graphics* gfx, SinglyLinkedList<Walls*>* w, SinglyLinkedList<Enemies*>* e, Player* player);
+	static void Input(Graphics* gfx, SinglyLinkedList<Walls*>* w, SinglyLinkedList<Enemies*>* e, Player** player);
 	static void Output();
 	static void Init();
 	static void Distruct();

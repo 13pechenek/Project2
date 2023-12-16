@@ -7,7 +7,7 @@
 Player::Player(float x, float y, Graphics* gfx)
 {
 	this->gfx = gfx;
-	sprite = new Sprites(L"test.png", gfx);
+	sprite = new Sprites(L"Player.png", gfx);
 	this->x = x;
 	this->y = y;
 	mPoint->x = 0;
@@ -92,7 +92,7 @@ void Player::SetInTheBorders(double timeDelta)
 	{
 		vec[0] = 0;
 	}
-	for (int i = 0; walls->out(i)->data != nullptr; i++)
+	for (int i = 0; walls->out(i) != nullptr; i++)
 	{
 		Walls* wall = walls->out(i)->data;
 		if (x + dx +49 > wall->left && x + dx < wall->left && y + dy   < wall->bottom && y + dy  > wall->top - 36)
@@ -140,10 +140,10 @@ Bullets* Player::Shoot(double timeTotal)
 }
 
 
-void Player::Update(double timeDelta, double timeTotal, KeyDirections key, POINT* mPoint)
+ void Player::Update(double timeDelta, double timeTotal, KeyDirections key, POINT* mPoint)
 {
 	int i = 0;
-	while (enemies->out(i)->data != nullptr) 
+	while (enemies->out(i) != nullptr) 
 	{
 		enemies->out(i)->data->Update(timeDelta, timeTotal);
 		i++;
@@ -152,9 +152,9 @@ void Player::Update(double timeDelta, double timeTotal, KeyDirections key, POINT
 	Move(key, timeDelta);
 	geometry = gfx->MoveGeometry(x, y, geometry);
 	this->mPoint = mPoint;
-	for (int i = 0; bullets.out(i)->data != nullptr; i++) bullets.out(i)->data->Update(timeDelta, timeTotal);
-	for (int i = 0; bullets.out(i)->data != nullptr; i++) bullets.out(i)->data->EnemyTouched();
-	for (int i = 0; bullets.out(i)->data != nullptr; i++)
+	for (int i = 0; bullets.out(i) != nullptr; i++) bullets.out(i)->data->Update(timeDelta, timeTotal);
+	for (int i = 0; bullets.out(i) != nullptr; i++) bullets.out(i)->data->EnemyTouched();
+	for (int i = 0; bullets.out(i) != nullptr; i++)
 	{
 		if (bullets.out(i)->data->WallTouched())
 		{
@@ -182,16 +182,15 @@ void Player::Update(double timeDelta, double timeTotal)
 void Player::Render()
 {
 	
-	for (int i = 0; bullets.out(i)->data != nullptr; i++) bullets.out(i)->data->Render();
+	for (int i = 0; bullets.out(i) != nullptr; i++) bullets.out(i)->data->Render();
 	int i = 0;
-	while (enemies->out(i)->data != nullptr)
+	while (enemies->out(i) != nullptr)
 	{
 		enemies->out(i)->data->Render();
 		i++;
 	}
-	for (i = 0; walls->out(i)->data != nullptr; i++) walls->out(1)->data->Render();
+	for (i = 0; walls->out(i) != nullptr; i++) walls->out(i)->data->Render();
 	sprite->DrawAtPlace(x, y);
-	gfx->GetRenderTarget()->FillGeometry(geometry, gfx->SetBrush());
 }
 
 

@@ -106,6 +106,15 @@
     <Image Include="Wall.png">
       <Filter>Файлы ресурсов</Filter>
     </Image>
+    <Image Include="Player.png">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="Enemy.jpg">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="Background.jpg">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <Text Include="lvl.txt" />

@@ -44,15 +44,14 @@ void Bullets::ResetDistance()
 
 void Bullets::Render()
 {
-	gfx->DrawCircle(x, y, 2.5, 1, 1, 1, 1);
+	gfx->DrawCircle(x, y, 2.5, 1, 1, 0, 1);
 	geometry = gfx->MoveGeometry(x, y, geometry);
-	gfx->GetRenderTarget()->FillGeometry(geometry, gfx->SetBrush());
 }
 
 bool Bullets::EnemyTouched()
 {
 	D2D1_GEOMETRY_RELATION* relation = new D2D1_GEOMETRY_RELATION;
-	for (int i = 0; enemies->out(i)->data != nullptr; i++) 
+	for (int i = 0; enemies->out(i) != nullptr; i++) 
 	{
 		geometry->CompareWithGeometry(enemies->out(i)->data->geometry, NULL, relation);
 		if (*relation != D2D1_GEOMETRY_RELATION_DISJOINT)
@@ -82,7 +81,7 @@ bool Bullets::PlayerTouched()
 bool Bullets::WallTouched()
 {
 	D2D1_GEOMETRY_RELATION* relation = new D2D1_GEOMETRY_RELATION;
-	for (int i = 0; walls->out(i)->data != nullptr; i++)
+	for (int i = 0; walls->out(i) != nullptr; i++)
 	{
 		geometry->CompareWithGeometry(walls->out(i)->data->geometry, NULL, relation);
 		if (*relation != D2D1_GEOMETRY_RELATION_DISJOINT)
