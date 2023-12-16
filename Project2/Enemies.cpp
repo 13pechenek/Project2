@@ -53,8 +53,7 @@ Bullets* Enemies::Shoot(double timeTotal)
 	{
 		lastShot = timeTotal;
 		countOfBullets--;
-		SinglyLinkedList<Enemies*> enem;
-		return new Bullets(x + 25, y + 17, player->GetCoordinate(), gfx, enem , walls, player);
+		return new Bullets(x + 25, y + 17, player->GetCoordinate(), gfx, nullptr , walls, player);
 	}
 	else return nullptr;
 }
@@ -87,12 +86,12 @@ void Enemies::Update(double timeDelta, double timeTotal)
 		else
 		{
 			Bullets* bull = Shoot(timeTotal);
-			if (bull != nullptr) bullets.push_back(bull);
+			if (bull != nullptr) bullets.append(bull);
 
 		}
 	}
-	for (Bullets* n : bullets) n->Update(timeDelta, timeTotal);
-	for (Bullets* n : bullets) n->PlayerTouched();
+	for (int i = 0; bullets.out(i)->data != nullptr; i++) bullets.out(i)->data->Update(timeDelta, timeTotal);
+	for (int i = 0; bullets.out(i)->data != nullptr; i++) bullets.out(i)->data->PlayerTouched();
 	geometry = gfx->MoveGeometry(x, y, geometry);
 }
 
@@ -100,7 +99,7 @@ void Enemies::Render()
 {
 	sprite->DrawAtPlace(x, y);
 	gfx->GetRenderTarget()->FillGeometry(ray, gfx->SetBrush());
-	for (Bullets* n : bullets) n->Render();
+	for (int i = 0; bullets.out(i)->data != nullptr; i++) bullets.out(i)->data->Render();
 	gfx->GetRenderTarget()->FillGeometry(geometry, gfx->SetBrush());
 
 }
@@ -114,7 +113,7 @@ bool Enemies::Damaged()
 Enemies::~Enemies()
 {
 	delete sprite;
-	for (Bullets* n : bullets) if (n != nullptr) delete n;
+	for (int i = 0; bullets.out(i)->data != nullptr; i++) delete bullets.out(i)->data;
 	geometry->Release();
 	rectangle->Release();
 	ray->Release();
