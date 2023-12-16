@@ -115,7 +115,7 @@ void InputOutput::Input(Graphics* gfx, SinglyLinkedList<Walls*>* w, SinglyLinked
 			mult *= 10;
 		}
 
-		e->append(new Enemies(xenemy, yenemy, player, , gfx));
+		e->append(new Enemies(xenemy, yenemy, player, w, gfx));
 	}
 }
 

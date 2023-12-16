@@ -14,8 +14,8 @@ private:
 	float x, y, v = 100, Sinus = 0, Cosin = 0, distanceToPoint;
 	POINT* aimPos;
 	Graphics* gfx;
-	std::vector<Enemies*>::iterator enemies;
-	std::vector<Walls*>::iterator walls;
+	SinglyLinkedList<Enemies*>* enemies;
+	SinglyLinkedList<Walls*>* walls;
 	Player* player;
 	ID2D1EllipseGeometry* geometry;
 	void move(double timeDelta);
@@ -23,7 +23,7 @@ private:
 	void Update(double timeDelta, double timeTotal, KeyDirections key, POINT* mpoint) override;
 
 public:
-	Bullets(float x, float y, POINT* aimPos, Graphics* gfx, std::vector<Enemies*>::iterator enemies, std::vector<Walls*>::iterator walls, Player* player);
+	Bullets(float x, float y, POINT* aimPos, Graphics* gfx, SinglyLinkedList<Enemies*>* enemies, SinglyLinkedList<Walls*>* walls, Player* player);
 	void Update(double timeDelta, double timeTotal) override;
 	void Render() override;
 	bool EnemyTouched();

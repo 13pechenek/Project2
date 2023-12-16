@@ -92,21 +92,22 @@ void Player::SetInTheBorders(double timeDelta)
 	{
 		vec[0] = 0;
 	}
-	for (int i = 0; walls != nullptr; i++)
+	for (int i = 0; walls->out(i)->data != nullptr; i++)
 	{
-		if (x + dx +49 > walls[i]->left && x + dx < walls[i]->left && y + dy   < walls[i]->bottom && y + dy  > walls[i]->top-36)
+		Walls* wall = walls->out(i)->data;
+		if (x + dx +49 > wall->left && x + dx < wall->left && y + dy   < wall->bottom && y + dy  > wall->top - 36)
 		{
 			vec[0] = 0;
 		}
-		else if (x + dx < walls[i]->right && x + dx +49 > walls[i]->right && y + dy   < walls[i]->bottom && y + dy + 36 > walls[i]->top)
+		else if (x + dx < wall->right && x + dx +49 > wall->right && y + dy   < wall->bottom && y + dy + 36 > wall->top)
 		{
 			vec[0] = 0;
 		}
-		if (y + dy + 36 > walls[i]->bottom && y + dy < walls[i]->bottom && x + dx + 49  > walls[i]->left && x + dx < walls[i]->right)
+		if (y + dy + 36 > wall->bottom && y + dy < wall->bottom && x + dx + 49  > wall->left && x + dx < wall->right)
 		{
 			vec[1] = 0;
 		}
-		else if (y + dy  < walls[i]->top && y + dy + 36 > walls[i]->top && x + dx + 49 > walls[i]->left && x + dx < walls[i]->right)
+		else if (y + dy  < wall->top && y + dy + 36 > wall->top && x + dx + 49 > wall->left && x + dx < wall->right)
 		{
 			vec[1] = 0;
 		}
@@ -142,9 +143,9 @@ Bullets* Player::Shoot(double timeTotal)
 void Player::Update(double timeDelta, double timeTotal, KeyDirections key, POINT* mPoint)
 {
 	int i = 0;
-	while (enemies[i] != nullptr) 
+	while (enemies->out(i)->data != nullptr) 
 	{
-		enemies[i]->Update(timeDelta, timeTotal);
+		enemies->out(i)->data->Update(timeDelta, timeTotal);
 		i++;
 	}
 	i = 0;
@@ -187,12 +188,12 @@ void Player::Render()
 	
 	for (Bullets* n : bullets) if(n!=nullptr) n->Render();
 	int i = 0;
-	while (enemies[i] != nullptr)
+	while (enemies->out(i)->data != nullptr)
 	{
-		enemies[i]->Render();
+		enemies->out(i)->data->Render();
 		i++;
 	}
-	for (i = 0; walls[i] != nullptr; i++) walls[i]->Render();
+	for (i = 0; walls->out(i)->data != nullptr; i++) walls->out(1)->data->Render();
 	sprite->DrawAtPlace(x, y);
 	gfx->GetRenderTarget()->FillGeometry(geometry, gfx->SetBrush());
 }

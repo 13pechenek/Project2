@@ -3,7 +3,7 @@
 #include "Enemies.h"
 
 
-Bullets::Bullets(float x, float y, POINT* aimPos, Graphics* gfx, std::vector<Enemies*>::iterator enemies, std::vector<Walls*>::iterator walls, Player* player)
+Bullets::Bullets(float x, float y, POINT* aimPos, Graphics* gfx, SinglyLinkedList<Enemies*>* enemies, SinglyLinkedList<Walls*>* walls, Player* player)
 {
 	this->enemies = enemies;
 	this->walls = walls;
@@ -52,13 +52,14 @@ void Bullets::Render()
 bool Bullets::EnemyTouched()
 {
 	D2D1_GEOMETRY_RELATION* relation = new D2D1_GEOMETRY_RELATION;
-	for (int i = 0; enemies[i] != nullptr; i++) 
+	for (int i = 0; enemies->out(i)->data != nullptr; i++) 
 	{
-		geometry->CompareWithGeometry(enemies[i]->geometry, NULL, relation);
+		geometry->CompareWithGeometry(enemies->out(i)->data->geometry, NULL, relation);
 		if (*relation != D2D1_GEOMETRY_RELATION_DISJOINT)
 		{
-			enemies[i]->Damaged();
-			enemies[i] = nullptr;
+			enemies->out(i)->data->Damaged();
+			enemies->removeAt(i);
+			i--;
 			return true;
 		}
 	}
@@ -81,9 +82,9 @@ bool Bullets::PlayerTouched()
 bool Bullets::WallTouched()
 {
 	D2D1_GEOMETRY_RELATION* relation = new D2D1_GEOMETRY_RELATION;
-	for (int i = 0; walls[i] != nullptr; i++)
+	for (int i = 0; walls->out(i)->data != nullptr; i++)
 	{
-		geometry->CompareWithGeometry(walls[i]->geometry, NULL, relation);
+		geometry->CompareWithGeometry(walls->out(i)->data->geometry, NULL, relation);
 		if (*relation != D2D1_GEOMETRY_RELATION_DISJOINT)
 		{
 			return true;
