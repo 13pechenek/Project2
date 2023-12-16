@@ -42,6 +42,16 @@ public:
         }
     }
 
+    ListNode<T>* out(int i)
+    {
+        ListNode<T>* Node = head;
+        for (int j = 0; j < i; j++)
+       {
+            Node = Node->next;
+       }
+        return Node;
+    }
+
     void removeAt(int index) {
         if (index == 0) {
             ListNode<T>* temp = head;
@@ -53,14 +63,12 @@ public:
             ListNode<T>* previous = nullptr;
             for (int i = 0; i < index; i++) {
                 if (!current) {
-                    std::cout << "Index out of bounds" << std::endl;
                     return;
                 }
                 previous = current;
                 current = current->next;
             }
             if (!current) {
-                std::cout << "Index out of bounds" << std::endl;
                 return;
             }
             previous->next = current->next;
@@ -68,12 +76,4 @@ public:
         }
     }
 
-    void printList() {
-        ListNode<T>* current = head;
-        while (current) {
-            std::cout << current->data << " -> ";
-            current = current->next;
-        }
-        std::cout << "nullptr" << std::endl;
-    }
 };
