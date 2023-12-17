@@ -21,10 +21,9 @@ Bullets::Bullets(float x, float y, POINT* aimPos, Graphics* gfx, SinglyLinkedLis
 	this->blue = blue;
 }
 
-void Bullets::Update(double timeDelta, double timeTotal)
+void Bullets::Update(double timeDelta)
 {
 	move(timeDelta);
-
 }
 
 

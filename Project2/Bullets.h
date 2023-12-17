@@ -26,7 +26,7 @@ private:
 
 public:
 	Bullets(float x, float y, POINT* aimPos, Graphics* gfx, SinglyLinkedList<Enemies*>* enemies, SinglyLinkedList<Walls*>* walls, Player* player, float red, float green, float blue);
-	void Update(double timeDelta, double timeTotal);
+	void Update(double timeDelta);
 	void Render();
 	bool EnemyTouched();
 	bool PlayerTouched();

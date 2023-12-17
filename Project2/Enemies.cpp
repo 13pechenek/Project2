@@ -87,7 +87,7 @@ void Enemies::Update(double timeDelta, double timeTotal)
 
 		}
 	}
-	for (int i = 0; bullets.out(i) != nullptr; i++) bullets.out(i)->data->Update(timeDelta, timeTotal);
+	for (int i = 0; bullets.out(i) != nullptr; i++) bullets.out(i)->data->Update(timeDelta);
 	for (int i = 0; bullets.out(i) != nullptr; i++) if (bullets.out(i)->data->PlayerTouched()) { delete bullets.out(i)->data; bullets.removeAt(i); i--; }
 	for (int i = 0; bullets.out(i) != nullptr; i++) if (bullets.out(i)->data->WallTouched()) { delete bullets.out(i)->data; bullets.removeAt(i); i--; }
 	geometry = gfx->MoveGeometry(x, y, geometry);

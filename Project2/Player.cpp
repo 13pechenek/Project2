@@ -152,8 +152,8 @@ Bullets* Player::Shoot(double timeTotal)
 	Move(key, timeDelta);
 	geometry = gfx->MoveGeometry(x, y, geometry);
 	this->mPoint = mPoint;
-	for (int i = 0; bullets.out(i) != nullptr; i++) bullets.out(i)->data->Update(timeDelta, timeTotal);
-	for (int i = 0; bullets.out(i) != nullptr; i++) bullets.out(i)->data->EnemyTouched();
+	for (int i = 0; bullets.out(i) != nullptr; i++) bullets.out(i)->data->Update(timeDelta);
+	for (int i = 0; bullets.out(i) != nullptr; i++)  if(bullets.out(i)->data->EnemyTouched()) {delete bullets.out(i)->data; bullets.removeAt(i); i--; }
 	for (int i = 0; bullets.out(i) != nullptr; i++)
 	{
 		if (bullets.out(i)->data->WallTouched())
