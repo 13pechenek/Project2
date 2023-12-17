@@ -22,9 +22,10 @@ private:
 	ID2D1EllipseGeometry* geometry;
 	void move(double timeDelta);
 	void ResetDistance();
+	float red, green, blue;
 
 public:
-	Bullets(float x, float y, POINT* aimPos, Graphics* gfx, SinglyLinkedList<Enemies*>* enemies, SinglyLinkedList<Walls*>* walls, Player* player);
+	Bullets(float x, float y, POINT* aimPos, Graphics* gfx, SinglyLinkedList<Enemies*>* enemies, SinglyLinkedList<Walls*>* walls, Player* player, float red, float green, float blue);
 	void Update(double timeDelta, double timeTotal);
 	void Render();
 	bool EnemyTouched();
