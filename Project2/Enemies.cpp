@@ -13,7 +13,7 @@ bool Enemies::Overlapped(Walls* wall, ID2D1TransformedGeometry* ray)
 
 bool Enemies::decide_to_move()
 {
-	if (distance_to_Player > 1000) return true; else return false;
+	if (distance_to_Player > 300) return true; else return false;
 }
 
 bool Enemies::able_to_see()
