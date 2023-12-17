@@ -95,19 +95,19 @@ void Player::SetInTheBorders(double timeDelta)
 	for (int i = 0; walls->out(i) != nullptr; i++)
 	{
 		Walls* wall = walls->out(i)->data;
-		if (x + dx +49 > wall->left && x + dx < wall->left && y + dy   < wall->bottom && y + dy  > wall->top - 36)
+		if (x + dx +49 > wall->left && x + dx < wall->left && y + dy   < wall->bottom && y + dy  > wall->top - 49)
 		{
 			vec[0] = 0;
 		}
-		else if (x + dx < wall->right && x + dx +49 > wall->right && y + dy   < wall->bottom && y + dy + 36 > wall->top)
+		else if (x + dx < wall->right && x + dx +49 > wall->right && y + dy   < wall->bottom && y + dy + 49 > wall->top)
 		{
 			vec[0] = 0;
 		}
-		if (y + dy + 36 > wall->bottom && y + dy < wall->bottom && x + dx + 49  > wall->left && x + dx < wall->right)
+		if (y + dy + 49 > wall->bottom && y + dy < wall->bottom && x + dx + 49  > wall->left && x + dx < wall->right)
 		{
 			vec[1] = 0;
 		}
-		else if (y + dy  < wall->top && y + dy + 36 > wall->top && x + dx + 49 > wall->left && x + dx < wall->right)
+		else if (y + dy  < wall->top && y + dy + 49 > wall->top && x + dx + 49 > wall->left && x + dx < wall->right)
 		{
 			vec[1] = 0;
 		}
@@ -134,7 +134,7 @@ Bullets* Player::Shoot(double timeTotal)
 	{
 		lastShot = timeTotal;
 		countOfBullets--;
-		return new Bullets(x + 47, y + 31, mPoint, gfx, enemies, walls, nullptr);
+		return new Bullets(x + 47, y + 31, mPoint, gfx, enemies, walls, nullptr, 1, 0, 0);
 	}
 	else return nullptr;
 }
@@ -163,8 +163,8 @@ Bullets* Player::Shoot(double timeTotal)
 				i--; 
 		} 
 	}
-	posit->x = x;
-	posit->y = y;
+	posit->x = x+25;
+	posit->y = y+25;
 	gfx->MoveGeometry(x, y, sprite->geometry);
 	if (mPoint->x == 0 && mPoint->y == 0) return;
 	Bullets* bullet = Shoot(timeTotal);

@@ -3,7 +3,7 @@
 #include "Enemies.h"
 
 
-Bullets::Bullets(float x, float y, POINT* aimPos, Graphics* gfx, SinglyLinkedList<Enemies*>* enemies, SinglyLinkedList<Walls*>* walls, Player* player)
+Bullets::Bullets(float x, float y, POINT* aimPos, Graphics* gfx, SinglyLinkedList<Enemies*>* enemies, SinglyLinkedList<Walls*>* walls, Player* player, float red, float green, float blue)
 {
 	this->enemies = enemies;
 	this->walls = walls;
@@ -16,6 +16,9 @@ Bullets::Bullets(float x, float y, POINT* aimPos, Graphics* gfx, SinglyLinkedLis
 	Cosin = (aimPos->x - this->x) / distanceToPoint;
 	Sinus = (aimPos->y - this->y) / distanceToPoint;
 	geometry = gfx->GetEllipseGeometry(x, y, 5, 5);
+	this->red = red;
+	this->green = green;
+	this->blue = blue;
 }
 
 void Bullets::Update(double timeDelta, double timeTotal)
@@ -38,7 +41,7 @@ void Bullets::ResetDistance()
 
 void Bullets::Render()
 {
-	gfx->DrawCircle(x, y, 5, 1, 1, 0, 1);
+	gfx->DrawCircle(x, y, 5, red, green, blue, 1);
 	geometry = gfx->MoveGeometry(x, y, geometry);
 }
 

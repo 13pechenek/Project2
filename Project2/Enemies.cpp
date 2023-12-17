@@ -6,7 +6,7 @@ bool Enemies::Overlapped(Walls* wall, ID2D1TransformedGeometry* ray)
 {
 	D2D1_GEOMETRY_RELATION* relation = new D2D1_GEOMETRY_RELATION;
 	ray->CompareWithGeometry(wall->geometry, NULL, relation);
-	if (*relation == D2D1_GEOMETRY_RELATION_DISJOINT) return true;
+	if (*relation != D2D1_GEOMETRY_RELATION_DISJOINT) return true;
 	else return false;
 }
 
@@ -19,8 +19,8 @@ bool Enemies::decide_to_move()
 bool Enemies::able_to_see()
 {
 	ray = gfx->GetRay(x, y, player->GetCoordinate());
-	for (int i = 0; walls->out(i) != nullptr; i++) if (Overlapped(walls->out(i)->data, ray)) return true;
-	return false;
+	for (int i = 0; walls->out(i) != nullptr; i++) if (Overlapped(walls->out(i)->data, ray)) return false;
+	return true;
 }
 
 void Enemies::move(double timeDelta)
@@ -53,7 +53,7 @@ Bullets* Enemies::Shoot(double timeTotal)
 	{
 		lastShot = timeTotal;
 		countOfBullets--;
-		return new Bullets(x + 25, y + 25, player->GetCoordinate(), gfx, nullptr , walls, player);
+		return new Bullets(x + 25, y + 25, player->GetCoordinate(), gfx, nullptr , walls, player, 1, 1, 0);
 	}
 	else return nullptr;
 }
@@ -88,7 +88,8 @@ void Enemies::Update(double timeDelta, double timeTotal)
 		}
 	}
 	for (int i = 0; bullets.out(i) != nullptr; i++) bullets.out(i)->data->Update(timeDelta, timeTotal);
-	for (int i = 0; bullets.out(i) != nullptr; i++) if (bullets.out(i)->data->PlayerTouched()) { delete bullets.out(i)->data; bullets.removeAt(i); }
+	for (int i = 0; bullets.out(i) != nullptr; i++) if (bullets.out(i)->data->PlayerTouched()) { delete bullets.out(i)->data; bullets.removeAt(i); i--; }
+	for (int i = 0; bullets.out(i) != nullptr; i++) if (bullets.out(i)->data->WallTouched()) { delete bullets.out(i)->data; bullets.removeAt(i); i--; }
 	geometry = gfx->MoveGeometry(x, y, geometry);
 }
 

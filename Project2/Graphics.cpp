@@ -118,9 +118,9 @@ void Graphics::DrawGeom(ID2D1Geometry* rect)
 
 ID2D1TransformedGeometry* Graphics::GetRay(float x, float y, POINT* point)
 {
-	double distance = sqrt(pow(x - point->x, 2) + pow(y - point->y, 2));
-	double sinus = (y - point->y) / distance;
-	double cosinus = (x - point->x) / distance;
+	double distance = sqrt(pow(x - point->x+25, 2) + pow(y - point->y+25, 2));
+	double sinus = (y - point->y + 25) / distance;
+	double cosinus = (x - point->x + 25) / distance;
 	ID2D1RectangleGeometry* rectGeom;
 	ID2D1TransformedGeometry* Tgeom;
 	factory->CreateRectangleGeometry(D2D1::Rect(x + 25.0, y + 25.0, x + distance + 25, y + 5.0 + 25), &rectGeom);
